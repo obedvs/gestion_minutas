@@ -1,0 +1,158 @@
+.contenedor_acuerdos {
+    width: 90%;
+}
+
+.arriba {
+    height: 40px;
+    width: 100%;
+
+    display: flex;
+
+}
+
+.Botones_acuerdos {
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+}
+
+.btncrearacuerdo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    height: 40px;
+    color: white;
+    border: none;
+    text-decoration: none;
+    text-align: center;
+
+    border-radius: 5px;
+    background-color: #19B450;
+}
+
+.btnconclucion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55%;
+    height: 40px;
+    color: white;
+    border: none;
+    text-decoration: none;
+    text-align: center;
+
+    border-radius: 5px;
+    background-color: #087990;
+}
+
+.tituloMinuta_Acuerdo {
+    padding-left: 15px;
+    padding-top: 30px;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    border-bottom: #B11830 5px solid;
+    padding-bottom: 10px;
+}
+
+.acuerdo {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 15px;
+
+    margin-top: 15px;
+    border-radius: 10px;
+    background-color: #EFEFEF;
+}
+
+.informacion {
+    width: 50%;
+}
+
+.Titulos {
+    font-size: 15px;
+    font-weight: 600;
+    padding-right: 9px;
+}
+
+.textacuerdo {
+    display: flex;
+
+    width: 50%;
+}
+
+.btn-acuerdo {
+    height: 40px;
+    width: 100px;
+
+    border: none;
+    border-radius: 5px;
+
+    margin-bottom: 3px;
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.botones {
+    width: 130px;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.el-ed {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.eliminar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 48%;
+    font-size: 18px;
+    background-color: #CB0A28;
+}
+
+.editar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 48%;
+    font-size: 22px;
+    background-color: #087990;
+}
+
+.detallesAcuerdo{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #E65B0C;
+}
+
+.icon-acuerdo {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.btn-acuerdo:hover {
+    background-color: rgba(0, 0, 0, 0.11);
+}
+
+.btncrearacuerdo:hover {
+    background-color: #1dd75e;
+}

@@ -1,0 +1,73 @@
+.contenedor_perfil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 85%;
+}
+
+.arriba {
+    height: 40px;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.parte_abajo_perfil {
+    display: flex;
+    flex-direction: column;
+
+    width: 80%;
+}
+
+.datos_perfil {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    margin: 10px;
+}
+
+.targeta_perfil {
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 1;
+    margin: 10px;
+    width: 300px;
+    height: 20%;
+
+    padding: 5px;
+}
+
+.inf_tex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 250px;
+    height: 40px;
+
+    color: #ffffff;
+    background-color: #B11830;
+
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.datos_perfil_text{
+    padding-left: 10px;
+    height: 35px;
+
+    border: 2px #B11830 solid;
+    margin: 5px;
+
+    border-radius: 5px;
+}

@@ -1,0 +1,233 @@
+.contenedor_minutas {
+    width: 90%;
+}
+
+.arriba {
+    height: 40px;
+    width: 100%;
+
+    display: flex;
+
+}
+
+.cont-busqueda {
+    display: flex;
+    align-items: center;
+    width: 80%;
+}
+
+.busqueda {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    background-color: #D9D9D9;
+    border-radius: 10PX;
+}
+
+.iconos_minuta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10PX;
+
+    font-size: 22px;
+    color: black;
+
+    background-color: #D9D9D9;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.search {
+    width: 90%;
+    height: 40px;
+
+    font-family: 'Open sans';
+    font-size: 17px;
+
+    border: none;
+    text-decoration: none;
+
+    background-color: transparent;
+}
+
+.botonIr {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45PX;
+    height: 45px;
+    background-color: #B11830;
+    color: white;
+    border-radius: 10px;
+}
+
+.filtro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 2px;
+
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    margin-left: 5px;
+
+    background-color: #D9D9D9;
+}
+
+.btncrearminuta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    height: 40px;
+    color: white;
+    border: none;
+    text-decoration: none;
+
+    border-radius: 5px;
+    background-color: #19B450;
+}
+
+.estado {
+    padding-left: 15px;
+    padding-top: 30px;
+
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.minuta {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 15px;
+
+    margin-top: 15px;
+    border-radius: 10px;
+    background-color: #EFEFEF;
+}
+
+.Titminuta {
+    font-size: 17px;
+    padding-bottom: 10px;
+    font-weight: 700;
+}
+
+.Titulos {
+    font-size: 15px;
+    font-weight: 600;
+    padding-right: 9px;
+}
+
+.textminuta {
+    display: flex;
+
+    width: 50%;
+}
+
+.btn-minuta {
+    height: 40px;
+    width: 100px;
+
+    border: none;
+    border-radius: 5px;
+
+    margin-bottom: 3px;
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.botones {
+    width: 110px;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.el-ed {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.icon-minuta {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.eliminar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 50px;
+    font-size: 18px;
+    background-color: #CB0A28;
+}
+
+.editar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 50px;
+    font-size: 22px;
+    background-color: #087990;
+}
+
+.detalles {
+    display: flex;
+    width: 100%;
+    align-items: center;
+
+    background-color: #E65B0C;
+}
+
+.terminar {
+    display: flex;
+    width: 100%;
+    align-items: center;
+
+    background-color: #19B450;
+}
+
+.pdf {
+    display: flex;
+    width: 100%;
+    align-items: center;
+
+    background-color: #B11830;
+}
+
+.adjunto {
+    display: flex;
+    width: 100%;
+    align-items: center;
+
+    background-color: #B11830;
+}
+
+.resumen {
+    display: flex;
+    width: 100%;
+    align-items: center;
+
+    background-color: #E65B0C;
+}
+
+.btn-minuta:hover {
+    background-color: rgba(0, 0, 0, 0.11);
+}
+
+.btncrearminuta:hover {
+    background-color: #1dd75e;
+}

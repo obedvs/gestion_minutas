@@ -1,0 +1,109 @@
+/* Estilos para el contenedor principal */
+.container-sides {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+  }
+  
+  /* Estilos para la parte izquierda */
+  .left-side {
+    background-color:#B11830;
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .left-side img {
+    max-width: 80%;
+    max-height: 80%;
+  }
+  .left-side h1 {
+    font-size: 40% auto;
+    font-family:sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+    margin-top: 2%;
+    text-align: center;
+  }
+  /* Estilos para la parte derecha */
+  .right-side {
+    background-color: white;
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  /* Estilos para los inputs*/
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    max-width: 500px;
+  }
+  
+  .input-log{
+    margin: 10px 0;
+    padding: 10px;
+    width: 80%;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  input[type="email"], input[type="password"] {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    width: 80%;
+  }
+  
+  input[type="submit"] {
+    margin-top: 20px;
+    padding: 15px;
+    width: 35% auto;
+    height: 100%;
+    border: none;
+    border-radius:  5px;
+    background-color: #B11830;
+    font-size: auto;
+    font-weight: bold;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button[type=button]{
+    margin-top: 5px;
+    padding: 15px;
+    width: 35% auto;
+    border: none;
+    border-radius:  5px;
+    background-color: white;
+    font-size: auto;
+    font-weight:lighter;
+    font-size: 100%;
+    cursor: pointer;
+  }
+  
+  /* Estilos telefonos (resolucion menor a 768px) */
+  @media (max-width: 767px) {
+    .container-sides {
+      flex-direction: column;
+    }
+  
+    .left-side, .right-side {
+      flex-basis: 100%;
+      height: auto;
+    }
+  
+  
+  }

@@ -1,0 +1,85 @@
+.contendo_generar_minuta {
+    padding: 15px;
+}
+
+.cuestionario_minuta {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.generarminuta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 90%;
+}
+
+.parte_arriba_minuta {
+    height: 40px;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.parte_abajo_minuta {
+    display: flex;
+    flex-direction: column;
+
+    width: 90%;
+}
+
+.input_minuta {
+    padding-left: 10px;
+    height: 35px;
+
+    border: 2px #B11830 solid;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    border-radius: 5px;
+}
+
+.cont-guardar {
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hora_fecha {
+    display: flex;
+    justify-content: space-between;
+}
+
+.fecha {
+    width: 50%;
+    margin-right: 5px;
+}
+
+.hora {
+    width: 50%;
+    margin-left: 5px;
+}
+
+.guardar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    height: 40px;
+    color: white;
+    border: none;
+    text-decoration: none;
+
+    border-radius: 5px;
+    background-color: #19B450;
+}
+
+.guardar:hover {
+    background-color: #1dd75e;
+}

@@ -1,0 +1,28 @@
+.contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    width: 97%;
+}
+
+.titulo_inicio {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    text-align: justify;
+    padding-bottom: 10px;
+}
+
+.text_inicio {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    text-align: justify;
+    padding-bottom: 10px;
+}
+
+.cont_inicio {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    text-align: justify;
+}

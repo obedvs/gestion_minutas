@@ -1,0 +1,74 @@
+.contenedor_usuarios {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 85%;
+    /*border: blueviolet 2px solid;*/
+}
+
+.arriba {
+    height: 40px;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /*border: blueviolet 2px solid;*/
+}
+
+.abajo_usuarios {
+    display: flex;
+    flex-direction: column;
+
+    width: 80%;
+
+    /*border: blueviolet 2px solid;*/
+}
+
+.area_usuarios {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 40px;
+
+    color: #ffffff;
+    background-color: #B11830;
+
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+
+    margin-top: 20px;
+
+    /*border: blueviolet 2px solid;*/
+}
+
+.contUsuarios {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    margin: 10px;
+
+    /*border: blueviolet 2px solid;*/
+}
+
+.usuario {
+    display: block;
+    justify-content: center;
+    margin: 6px;
+    width: 240px;
+    height: 20%;
+
+
+    border: 2px solid #B11830;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.text_usuarios {
+    margin: 5%;
+    /*border: blueviolet 2px solid;*/
+}
