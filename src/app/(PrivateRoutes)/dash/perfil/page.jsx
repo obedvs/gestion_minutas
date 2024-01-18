@@ -24,7 +24,7 @@ const Perfil = () =>{
 		try {
 			const response = await axios.get(`http://localhost:3001/users/${idU}`);
 			setUserData(response.data);
-			// console.log(response.data);
+			console.log(response.data);
 
 		} catch (error) {
 			console.error(error);

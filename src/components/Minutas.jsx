@@ -76,8 +76,8 @@ export const Activa = (minuta) => {
   };
 
   // Terminar Minuta
+  const [minutaData, setMinutaData] = useState(null);
   const handleTerminarClick = (id) => {
-    const [minutaData, setMinutaData] = useState(null);
     // Get data
     const fetchData = async () => {
       try {

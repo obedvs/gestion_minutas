@@ -5,29 +5,42 @@ import axios from 'axios';
 
 function PersonalInvitado(props) {
   const tamañoInvitados = props.data.usuario_id.length;
+  console.log(tamañoInvitados);
   const tamAcuerdos = props.dataAcu;
   const [usuarioData, setUsuariosData] = useState([]);
+  const [signsData, setSignsData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const promises = props.data.usuario_id.map(async (usuario) => {
-          const response = await axios.get(`http://localhost:3001/users/${usuario}`);
-          return response.data;
+        // Mapear los usuarios de manera asíncrona
+        const promiseUsuarios = props.data.usuario_id.map(async (usuario) => {
+          const responseUsuario = await axios.get(`http://localhost:3001/users/${usuario}`);
+          return responseUsuario.data;
         });
 
-        const userData = await Promise.all(promises);
-        setUsuariosData(userData);
+        // Obtener datos de firmas
+        const responseSigns = await axios.get(`http://localhost:3001/signs/${props.data._id}`);
+        const signData = responseSigns.data;
+
+        // Esperar a que se completen todas las solicitudes de usuarios
+        const usuariosData = await Promise.all(promiseUsuarios);
+
+        // Actualizar los estados
+        setUsuariosData(usuariosData);
+        setSignsData(signData);
+
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchData();
-  }, [props.data.usuario_id]);
+  }, [props.data.usuario_id, props.data._id]);
 
   const wordsCount = props.data.descripcion.trim().split(/\s+/).length;
-
+  console.log('usuarioData', usuarioData);
+  console.log('signsData', signsData);
   const invitados = usuarioData.map((item, index) => {
     let className = "cuart2-bod";
     if (wordsCount <= 149) {}
@@ -50,7 +63,7 @@ function PersonalInvitado(props) {
         <div className="center p-2">{index === 14 ? "a---" : index === 15 ? "b---" : ""}{item.nombre} {item.apellido_paterno} {item.apellido_materno}</div>
         <div className="center p-2">{item.cargo}</div>
         <div className="center p-2">
-          <p>{item.token}</p>
+          <p>{signsData.find(minute => minute.user_id === item._id)?.sign || ""}</p>
         </div>
       </div>
     );

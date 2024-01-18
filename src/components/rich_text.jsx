@@ -1,27 +1,31 @@
-import { useRef } from "react";
-import JoditEditor from "jodit-react";
+//"use client"
 
-/**
- * @param {object} props - Props of the component
- * @param {string} props.value - Text to be show in the editor
- * @param {function} props.setValue - Function to set the value of the editor
- * @param {string} props.propName - Name of the property to be set in the object
- * @returns {JSX.Element}
- */
+import { useRef, useEffect } from "react";
+import dynamic from 'next/dynamic';
+
+const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
+
 const EditText = ({ value = '', setValue }) => {
+  const editor = useRef(null);
 
-	const editor = useRef(null);
+  useEffect(() => {
+    if (editor.current) {
+      // Acciones adicionales después de que el editor se ha cargado
+    }
+  }, [editor]);
 
-	return (
-		<>
-			<JoditEditor
-				ref={editor}
-				value={value}
-				onBlur={(newContent) => setValue(newContent)}
-				onChange={(newContent) => {}}
-			/>
-		</>
-	);
+  return (
+    <>
+      {typeof window !== 'undefined' && (
+        <JoditEditor
+          ref={editor}
+          value={value}
+          onBlur={(newContent) => setValue(newContent)}
+          onChange={(newContent) => {}}
+        />
+      )}
+    </>
+  );
 };
 
 export default EditText;

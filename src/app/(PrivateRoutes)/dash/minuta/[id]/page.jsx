@@ -52,7 +52,7 @@ const MinutaSeleccionada = ({ params }) => {
             icon={PlusCircleIcon}
             iconPosition='right'
             color='red'
-            onClick={() => navigate(`/dash/minutas/${id}/generaracuerdo`)}
+            onClick={() => router.push(`/dash/minutas/${id}/generaracuerdo`)}
           >
             Añadir acuerdo
           </Button>
@@ -64,15 +64,17 @@ const MinutaSeleccionada = ({ params }) => {
         {id}
       </Title>
       <Divider className='mt-2' />
+      <div className='md:grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2'>
       {
         acuerdoData.length > 0
         ? acuerdoData.reverse().map((u, index) => (
           <Acuerdos key={index} {...u} />
-        ))
+          ))
         : <Text className='mt-4'>
           No hay acuerdos registrados
           </Text>
       }
+      </div>
     </>
   );
 };

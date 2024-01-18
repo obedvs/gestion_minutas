@@ -102,7 +102,7 @@ const NuevaMinutas = () => {
     <>
       <Icon className='w-10 h-10 cursor-pointer' 
         icon={ ArrowUturnLeftIcon } 
-        onClick={ () => navigate(-1) } 
+        onClick={ () => router.back() } 
         variant='solid' 
         color='red'
         tooltip='Regresar'

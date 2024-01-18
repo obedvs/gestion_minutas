@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -38,32 +40,32 @@ export const Acuerdos = (acuerdo) => {
   };
 
   return (
-    <Card className='w-full md:max-w-2xl mb-5'>
+    <Card className='w-full mb-1'>
       <div className='flex flex-col md:flex-row'>
-        <div className='flex flex-col w-full md:w-8/12'>
-          <div className='flex items-center gap-2'>
-            <Title>Titulo:</Title>
+        <div className='flex flex-col w-full md:w-2/3 justify-center gap-1'>
+          <div className='flex items-center gap-1'>
+            <Title className='!text-sm'>Titulo:</Title>
             <Text>{acuerdo.acuerdo}</Text>
           </div>
-          <div className='flex items-center gap-2'>
-            <Title>Responsable de revisar:</Title>
+          <div className='flex items-center gap-1'>
+            <Title className='!text-sm'>Responsable de revisar:</Title>
             <Text>{userRRData?.nombre}</Text>
           </div>
-          <div className='flex items-center gap-2'>
-            <Title>Responsable de cumplir:</Title>
+          <div className='flex items-center gap-1'>
+            <Title className='!text-sm'>Responsable de cumplir:</Title>
             <Text>{userRCData?.nombre}</Text>
           </div>
-          <div className='flex items-center gap-2'>
-            <Title>Fecha de compromiso:</Title>
+          <div className='flex items-center gap-1'>
+            <Title className='!text-sm'>Fecha de compromiso:</Title>
             <Text>{acuerdo.fecha}</Text>
           </div>
-          <div className='flex items-center gap-2'>
-            <Title>Estatus:</Title>
+          <div className='flex items-center gap-1'>
+            <Title className='!text-sm'>Estatus:</Title>
             <Text>{acuerdo.estatus}</Text>
           </div>
         </div>
 
-        <div className="w-full md:w-4/12 flex flex-col gap-2">
+        <div className="w-full md:w-1/3 flex flex-col justify-center gap-2">
           <Button
             className='w-full'
             icon={ PencilIcon }

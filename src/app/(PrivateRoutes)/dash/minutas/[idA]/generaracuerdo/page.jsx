@@ -39,6 +39,39 @@ const NuevoAcuerdo = ({ params }) => {
     fetchResponsables();
   }, []);
 
+  const handleEmails = async () => {
+    // if (id.length === 0) return;
+    const emailc = responsables.find(user => user._id === formData.responsablec_id ).email;
+    const emailr = responsables.find(user => user._id === formData.responsabler_id ).email;
+    // TODO: CHANGE THIS TO THE REAL URL
+    axios.post(`http://localhost:3001/send_email_3`, {
+      subject: `Responsable de Acuerdo - ${formData.acuerdo}`,
+      acuerdo: formData.acuerdo,
+      date: formData.fecha,
+      responsablec: emailc,
+      responsabler: emailr,
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        Swal.fire({
+          title: 'Correos enviados',
+          icon: 'success',
+          confirmButtonText: 'Continuar'
+        }).then(() => {
+          router.push(`/dash/minuta/${idA}`);
+        })
+      } else {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Error al enviar los correos',
+          icon: 'error',
+          confirmButtonText: 'Cool'
+        });
+      }
+    })
+    .catch((error) => { console.error(error); });
+  }
+
   const handleGuardarClick = async (e) => {
     e.preventDefault();
     if (editableDescription.length > 300) {
@@ -62,9 +95,9 @@ const NuevoAcuerdo = ({ params }) => {
           title: "Acuerdo Creado",
           text: "Se creó correctamente el Acuerdo",
           icon: "success",
-          confirmButtonText: "Cool",
+          confirmButtonText: "Continuar",
         }).then(() => {
-          router.push(`/dash/minuta/${idA}`);
+          handleEmails(e);
         });
       } else {
         Swal.fire({
