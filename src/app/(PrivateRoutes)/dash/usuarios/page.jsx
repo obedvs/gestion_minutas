@@ -12,7 +12,7 @@ const Usuarios = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/users/');
+        const response = await axios.get('http://62.72.1.33:3001/users/');
         setUserData(response.data); 
 
       } catch (error) {

@@ -20,11 +20,11 @@ export const Acuerdos = (acuerdo) => {
     const fetchData = async () => {
       try {
         const responseRC = await axios.get(
-          `http://localhost:3001/users/${acuerdo.responsablec_id}`
+          `http://62.72.1.33:3001/users/${acuerdo.responsablec_id}`
         );
         setUserRCData(responseRC.data);
         const responseRR = await axios.get(
-          `http://localhost:3001/users/${acuerdo.responsabler_id}`
+          `http://62.72.1.33:3001/users/${acuerdo.responsabler_id}`
         );
         setUserRRData(responseRR.data);
       } catch (error) {

@@ -25,7 +25,7 @@ const Minutas = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/minutes/`);
+      const response = await axios.get(`http://62.72.1.33:3001/minutes/`);
       const reversedMinutaData = response.data.reverse();
       setMinutaData(reversedMinutaData); 
     } catch (error) {

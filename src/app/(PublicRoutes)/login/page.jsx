@@ -41,7 +41,7 @@ const Login = () => {
       password
     };
   
-    fetch("http://localhost:3001/users", {
+    fetch("http://62.72.1.33:3001/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

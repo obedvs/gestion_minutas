@@ -17,7 +17,7 @@ function EliminarAcuerdo({ props }) {
   }).then((result) => {
     if (result.isConfirmed) {
       axios
-        .delete(`http://localhost:3001/agreement/${id}`)
+        .delete(`http://62.72.1.33:3001/agreement/${id}`)
         .then(response => {
           console.log('Eliminación exitosa');
           Swal.fire({

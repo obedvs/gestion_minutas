@@ -18,7 +18,7 @@ const MinutaSeleccionada = ({ params }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/agreement/`);
+        const response = await axios.get(`http://62.72.1.33:3001/agreement/`);
         setAcuerdoData(response.data.filter((u) => u.minuta_id === id));
       } catch (error) {
         console.error(error);

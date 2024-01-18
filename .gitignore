@@ -5,8 +5,8 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-/Base de Datos
-/Base de Datos/node_modules
+/database-minutas
+/database-minutas/node_modules
 
 # testing
 /coverage

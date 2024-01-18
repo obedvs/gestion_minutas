@@ -29,7 +29,7 @@ const NuevaMinutas = ({ params }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/agreement/${idA}`);
+        const response = await axios.get(`http://62.72.1.33:3001/agreement/${idA}`);
         setAcuerdoData(response.data);
         setFormData(response.data);
         setEditableDescription(response.data.descripcion);
@@ -50,7 +50,7 @@ const NuevaMinutas = ({ params }) => {
     e.preventDefault();
     // console.log(formData);
     try {
-      const response = await axios.put(`http://localhost:3001/agreement/${idA}`, {
+      const response = await axios.put(`http://62.72.1.33:3001/agreement/${idA}`, {
         ...formData,
         descripcion: editableDescription
       });

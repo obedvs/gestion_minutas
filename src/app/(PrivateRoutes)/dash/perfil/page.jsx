@@ -22,7 +22,7 @@ const Perfil = () =>{
 
 	const fetchData = async () => {
 		try {
-			const response = await axios.get(`http://localhost:3001/users/${idU}`);
+			const response = await axios.get(`http://62.72.1.33:3001/users/${idU}`);
 			setUserData(response.data);
 			console.log(response.data);
 

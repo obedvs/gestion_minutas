@@ -52,7 +52,7 @@ const generatePDF = async (idM) => {
       const formData = new FormData();
       formData.append('pdf', new Blob([pdfBlob], { type: 'application/pdf' }), `archivo-${idM}.pdf`);
 
-      await axios.post(`http://localhost:3001/save-pdf/${idM}`, formData, {
+      await axios.post(`http://62.72.1.33:3001/save-pdf/${idM}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -71,9 +71,9 @@ const PDFViewer = ({ params }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const responseMinuta = await axios.get(`http://localhost:3001/minutes/${idM}`);
+        const responseMinuta = await axios.get(`http://62.72.1.33:3001/minutes/${idM}`);
         setMinutaData(responseMinuta.data);
-        const responseAcuerdos = await axios.get(`http://localhost:3001/agreement`);
+        const responseAcuerdos = await axios.get(`http://62.72.1.33:3001/agreement`);
         const acuerdosFiltrados = responseAcuerdos.data.filter(
           (element) => element.minuta_id === responseMinuta.data._id
         );

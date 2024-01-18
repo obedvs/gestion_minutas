@@ -29,7 +29,7 @@ const NuevoAcuerdo = ({ params }) => {
   useEffect(() => {
     const fetchResponsables = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/users/");
+        const response = await axios.get("http://62.72.1.33:3001/users/");
         setResponsables(response.data);
       } catch (error) {
         console.error(error);
@@ -44,7 +44,7 @@ const NuevoAcuerdo = ({ params }) => {
     const emailc = responsables.find(user => user._id === formData.responsablec_id ).email;
     const emailr = responsables.find(user => user._id === formData.responsabler_id ).email;
     // TODO: CHANGE THIS TO THE REAL URL
-    axios.post(`http://localhost:3001/send_email_3`, {
+    axios.post(`http://62.72.1.33:3001/send_email_3`, {
       subject: `Responsable de Acuerdo - ${formData.acuerdo}`,
       acuerdo: formData.acuerdo,
       date: formData.fecha,
@@ -85,7 +85,7 @@ const NuevoAcuerdo = ({ params }) => {
     }
     try {
       const response = await axios.post(
-        "http://localhost:3001/agreement/", {
+        "http://62.72.1.33:3001/agreement/", {
           ...formData,
           descripcion: editableDescription
         }

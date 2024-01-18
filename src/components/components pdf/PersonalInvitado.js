@@ -15,12 +15,12 @@ function PersonalInvitado(props) {
       try {
         // Mapear los usuarios de manera asíncrona
         const promiseUsuarios = props.data.usuario_id.map(async (usuario) => {
-          const responseUsuario = await axios.get(`http://localhost:3001/users/${usuario}`);
+          const responseUsuario = await axios.get(`http://62.72.1.33:3001/users/${usuario}`);
           return responseUsuario.data;
         });
 
         // Obtener datos de firmas
-        const responseSigns = await axios.get(`http://localhost:3001/signs/${props.data._id}`);
+        const responseSigns = await axios.get(`http://62.72.1.33:3001/signs/${props.data._id}`);
         const signData = responseSigns.data;
 
         // Esperar a que se completen todas las solicitudes de usuarios

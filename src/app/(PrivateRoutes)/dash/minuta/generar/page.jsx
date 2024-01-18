@@ -30,7 +30,7 @@ const NuevaMinutas = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/users/");
+        const response = await axios.get("http://62.72.1.33:3001/users/");
         setUserData(response.data);
       } catch (error) {
         console.error(error);
@@ -52,7 +52,7 @@ const NuevaMinutas = () => {
     if ( ids.length === 0 ) return;
     const emails = ids.map((id) => usersData.find( user => user._id === id ).email);
     // TODO: CHANGE THIS TO THE REAL URL
-    axios.post('http://localhost:3001/send_email', {
+    axios.post('http://62.72.1.33:3001/send_email', {
       subject: datosMinuta.asunto,
       date: datosMinuta.fecha,
       time: datosMinuta.hora,
@@ -73,7 +73,7 @@ const NuevaMinutas = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
       axios
-        .post("http://localhost:3001/minutes/", {
+        .post("http://62.72.1.33:3001/minutes/", {
           ...datosMinuta,
           descripcion: editableDescription,
         })
