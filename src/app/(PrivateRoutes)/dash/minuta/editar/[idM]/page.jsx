@@ -30,7 +30,7 @@ const EditarMinuta = ({ params }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://62.72.1.33:3001/minutes/${idM}`);
+        const response = await axios.get(`/api/minutes/${idM}`);
         setMinutaData(response.data);
         setFormData(response.data);
         setEditableDescription(response.data.descripcion);
@@ -45,7 +45,7 @@ const EditarMinuta = ({ params }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://62.72.1.33:3001/users/");
+        const response = await axios.get("/api/users/");
         setUserData(response.data);
       } catch (error) {
         console.error(error);
@@ -66,7 +66,7 @@ const EditarMinuta = ({ params }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.put(`http://62.72.1.33:3001/minutes/${idM}`, {
+        const response = await axios.put(`/api/minutes/${idM}`, {
           ...formData,
           // responsable: responsableEncontrado._id,
           descripcion: editableDescription

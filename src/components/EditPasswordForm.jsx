@@ -15,7 +15,7 @@ export const EditPasswordForm = ({ setIsEditOpen, updateProfilePage, userId }) =
 
     const updateProfile = async() => {
         try {
-            const response = await axios.put(`http://62.72.1.33:3001/users/${userId}`, { password: newPassowrd });
+            const response = await axios.put(`/api/users/${userId}`, { password: newPassowrd });
             if ( response.status === 200 ) {
                 setIsEditOpen(false);
             }

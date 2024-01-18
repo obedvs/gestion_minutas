@@ -43,7 +43,7 @@ export const EditProfileForm = ({ userData, setIsEditOpen, updateProfilePage, us
 
     const updateProfile = async() => {
         try {
-            const response = await axios.put(`http://62.72.1.33:3001/users/${userId}`, userFormData);
+            const response = await axios.put(`/api/users/${userId}`, userFormData);
             if ( response.status === 200 ) {
                 setIsEditOpen(false);
             }

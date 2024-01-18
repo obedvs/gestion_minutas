@@ -21,7 +21,7 @@ function EliminarMinuta( props ) {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://62.72.1.33:3001/minutes/${id}`)
+          .delete(`/api/minutes/${id}`)
           .then(response => {
             console.log('Eliminación exitosa');
             Swal.fire({

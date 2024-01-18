@@ -21,8 +21,8 @@ const ConclusionMinuta = ({ params }) => {
     const fetchData = async () => {
       try {
         const [response, userDataResponse] = await Promise.all([
-          axios.get(`http://62.72.1.33:3001/minutes/${idA}`),
-          axios.get("http://62.72.1.33:3001/users/"),
+          axios.get(`/api/minutes/${idA}`),
+          axios.get("/api/users/"),
         ]);
         setConclusion(response?.data?.conclusion);
         setUserData(userDataResponse.data);
@@ -39,7 +39,7 @@ const ConclusionMinuta = ({ params }) => {
     if (ids.length === 0) return;
     const emails = ids.map((id) => usersData.find(user => user._id === id ).email);
     // TODO: CHANGE THIS TO THE REAL URL
-    axios.post(`http://62.72.1.33:3001/send_email_2/${idM}`, {
+    axios.post(`/api/send_email_2/${idM}`, {
       subject: "Firma de Minuta",
       guests: emails,
     })
@@ -67,7 +67,7 @@ const ConclusionMinuta = ({ params }) => {
   const handleSubmit = async() => {
     if (conclusion === '') return;
     try {
-      const response = await axios.put(`http://62.72.1.33:3001/minutes/${idA}`, {
+      const response = await axios.put(`/api/minutes/${idA}`, {
         conclusion
       });
 

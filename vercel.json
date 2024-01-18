@@ -1,0 +1,11 @@
+{
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "http://62.72.1.33:3001/$1",
+      "headers": {
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
+      }
+    }
+  ]
+}

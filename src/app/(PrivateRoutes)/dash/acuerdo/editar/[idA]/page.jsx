@@ -28,7 +28,7 @@ const EditarAcuerdo = ({ params }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://62.72.1.33:3001/agreement/${idA}`);
+        const response = await axios.get(`/api/agreement/${idA}`);
         setAcuerdoData(response.data);
         setFormData(response.data);
         setEditableDescription(response.data.descripcion);
@@ -43,7 +43,7 @@ const EditarAcuerdo = ({ params }) => {
   useEffect(() => {
     const fetchResponsables = async () => {
       try {
-        const response = await axios.get(`http://62.72.1.33:3001/users/`);
+        const response = await axios.get(`/api/users/`);
         setResponsables(response.data);
       } catch (error) {
         console.error(error);
@@ -63,7 +63,7 @@ const EditarAcuerdo = ({ params }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.put(`http://62.72.1.33:3001/agreement/${idA}`, {
+        const response = await axios.put(`/api/agreement/${idA}`, {
           ...formData,
           descripcion: editableDescription
         });

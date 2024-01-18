@@ -41,7 +41,7 @@ const Login = () => {
       password
     };
   
-    fetch("http://62.72.1.33:3001/users", {
+    fetch("/api/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +75,7 @@ const Login = () => {
     if (addUsers) {
       handleAddUsers();
     } else {
-      fetch("http://62.72.1.33:3001/users")
+      fetch("/api/users")
         .then((response) => response.json())
         .then((users) => {
           console.log(users);

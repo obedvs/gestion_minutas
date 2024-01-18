@@ -11,7 +11,7 @@ function TerminarMinuta({ props }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://62.72.1.33:3001/minutes/${id}`);
+        const response = await axios.get(`/api/minutes/${id}`);
         setMinutaData(response.data);
       } catch (error) {
         console.error(error);
@@ -35,7 +35,7 @@ function TerminarMinuta({ props }) {
         cancelButtonText: 'No, cancelar',
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.put(`http://62.72.1.33:3001/minutes/${id}`, datosMinuta)
+          axios.put(`/api/minutes/${id}`, datosMinuta)
             .then(response => {
               Swal.fire({
                 title: 'Minuta Terminada',

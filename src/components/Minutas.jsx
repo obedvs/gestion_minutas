@@ -38,7 +38,7 @@ export const Activa = (minuta) => {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .delete(`http://62.72.1.33:3001/minutes/${id}`)
+            .delete(`/api/minutes/${id}`)
             .then(response => {
               console.log('Eliminación exitosa');
               Swal.fire({
@@ -81,7 +81,7 @@ export const Activa = (minuta) => {
     // Get data
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://62.72.1.33:3001/minutes/${id}`);
+        const response = await axios.get(`/api/minutes/${id}`);
         setMinutaData(response.data);
       } catch (error) {
         console.error(error);
@@ -103,7 +103,7 @@ export const Activa = (minuta) => {
         cancelButtonText: 'No, cancelar',
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.put(`http://62.72.1.33:3001/minutes/${id}`, datosMinuta)
+          axios.put(`/api/minutes/${id}`, datosMinuta)
             .then(response => {
               Swal.fire({
                 title: 'Minuta Terminada',
