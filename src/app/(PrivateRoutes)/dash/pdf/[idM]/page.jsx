@@ -10,6 +10,7 @@ import PersonalInvitado from "@/components/components pdf/PersonalInvitado";
 import SeguimientoAcuerdos from "@/components/components pdf/SeguimientoAcuerdos";
 import Conclusion from "@/components/components pdf/Conclusion";
 import html2pdf from 'html2pdf.js';
+import { apiUrl } from '@/config/config';
 
 const generatePDF = async (idM) => {
   const element = document.getElementById('divToPrint');
@@ -52,7 +53,7 @@ const generatePDF = async (idM) => {
       const formData = new FormData();
       formData.append('pdf', new Blob([pdfBlob], { type: 'application/pdf' }), `archivo-${idM}.pdf`);
 
-      await axios.post(`/api/save-pdf/${idM}`, formData, {
+      await axios.post(`${ apiUrl }/save-pdf/${idM}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -71,9 +72,9 @@ const PDFViewer = ({ params }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const responseMinuta = await axios.get(`/api/minutes/${idM}`);
+        const responseMinuta = await axios.get(`${ apiUrl }/minutes/${idM}`);
         setMinutaData(responseMinuta.data);
-        const responseAcuerdos = await axios.get(`/api/agreement`);
+        const responseAcuerdos = await axios.get(`${ apiUrl }/agreement`);
         const acuerdosFiltrados = responseAcuerdos.data.filter(
           (element) => element.minuta_id === responseMinuta.data._id
         );

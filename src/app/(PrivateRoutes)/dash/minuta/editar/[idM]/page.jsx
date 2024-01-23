@@ -8,6 +8,7 @@ import EditText from "@/components/rich_text";
 import "@/styles/generarMinuta.css";
 import { Title, Icon, Button, TextInput, Select, SelectItem, Subtitle, MultiSelect, MultiSelectItem } from "@tremor/react";
 import { ArrowUturnLeftIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline'
+import { apiUrl } from "@/config/config";
 
 const EditarMinuta = ({ params }) => {
   const { idM } = params;
@@ -30,7 +31,7 @@ const EditarMinuta = ({ params }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/api/minutes/${idM}`);
+        const response = await axios.get(`${ apiUrl }/minutes/${idM}`);
         setMinutaData(response.data);
         setFormData(response.data);
         setEditableDescription(response.data.descripcion);
@@ -45,7 +46,7 @@ const EditarMinuta = ({ params }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/users/");
+        const response = await axios.get(`${ apiUrl }/users/`);
         setUserData(response.data);
       } catch (error) {
         console.error(error);
@@ -66,7 +67,7 @@ const EditarMinuta = ({ params }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.put(`/api/minutes/${idM}`, {
+        const response = await axios.put(`${ apiUrl }/minutes/${idM}`, {
           ...formData,
           // responsable: responsableEncontrado._id,
           descripcion: editableDescription

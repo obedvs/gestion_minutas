@@ -6,12 +6,11 @@ import {
   AiFillCheckCircle,
   AiFillFilePdf,
 } from 'react-icons/ai';
-import EliminarMinuta from './actions/eliminarMinuta';
-import TerminarMinuta from './actions/terminarMinuta';
 import { Title, Text, Card, Button } from '@tremor/react';
 import { PencilIcon, TrashIcon, ChevronDoubleRightIcon  } from '@heroicons/react/24/outline'
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import { apiUrl } from '@/config/config';
 
 
 export const Activa = (minuta) => {
@@ -38,7 +37,7 @@ export const Activa = (minuta) => {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .delete(`/api/minutes/${id}`)
+            .delete(`${ apiUrl }/minutes/${id}`)
             .then(response => {
               console.log('Eliminación exitosa');
               Swal.fire({
@@ -81,7 +80,7 @@ export const Activa = (minuta) => {
     // Get data
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/api/minutes/${id}`);
+        const response = await axios.get(`${ apiUrl }/minutes/${id}`);
         setMinutaData(response.data);
       } catch (error) {
         console.error(error);
@@ -103,7 +102,7 @@ export const Activa = (minuta) => {
         cancelButtonText: 'No, cancelar',
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.put(`/api/minutes/${id}`, datosMinuta)
+          axios.put(`${ apiUrl }/minutes/${id}`, datosMinuta)
             .then(response => {
               Swal.fire({
                 title: 'Minuta Terminada',
@@ -137,7 +136,7 @@ export const Activa = (minuta) => {
     return (
       <Card className='w-full mb-4 flex flex-col justify-between'>
         <div className='flex'>
-          <div className='flex flex-col w-2/3 justify-center gap-1'>
+          <div className={minuta.responsable === minuta.User ? `flex flex-col w-2/3 justify-center gap-1` : `flex flex-col w-full justify-center gap-1`}>
             <div className='flex items-center gap-1'>
               <Title className='!text-sm'>Tema:</Title>
               <Text>{minuta.tema}</Text>
@@ -156,7 +155,7 @@ export const Activa = (minuta) => {
             </div>
           </div>
 
-          <div className="w-1/3 flex flex-col gap-2">
+          <div className={minuta.responsable === minuta.User ? `w-1/3 flex flex-col gap-2` : `hidden`}>
             <Button
               className='w-full'
               icon={ PencilIcon }
@@ -192,7 +191,7 @@ export const Activa = (minuta) => {
             {/* {eliminarMinutaVisible && <EliminarMinuta id={minuta._id} />} */}
           </div>
         </div>
-        <div className='w-full mt-2'>
+        <div className={minuta.responsable === minuta.User ? `w-full mt-2` : `hidden`}>
           <Button
             className='w-full'
             icon={ AiFillCheckCircle }

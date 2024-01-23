@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button, Title, TextInput, Subtitle } from "@tremor/react"
 import { ArchiveBoxXMarkIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
+import { apiUrl } from "@/config/config";
 
 export const EditProfileForm = ({ userData, setIsEditOpen, updateProfilePage, userId }) => {
 
@@ -43,7 +44,7 @@ export const EditProfileForm = ({ userData, setIsEditOpen, updateProfilePage, us
 
     const updateProfile = async() => {
         try {
-            const response = await axios.put(`/api/users/${userId}`, userFormData);
+            const response = await axios.put(`${ apiUrl }/users/${userId}`, userFormData);
             if ( response.status === 200 ) {
                 setIsEditOpen(false);
             }

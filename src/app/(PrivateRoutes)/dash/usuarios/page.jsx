@@ -5,6 +5,7 @@ import axios from 'axios';
 import '@/styles/usuarios.css'
 import TargetaUsuario from '@/components/Usuarios'
 import { Card, Metric } from '@tremor/react';
+import { apiUrl } from '@/config/config';
 
 const Usuarios = () => {
   const [usersData, setUserData] = useState(null);
@@ -12,7 +13,7 @@ const Usuarios = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/api/users/');
+        const response = await axios.get(`${ apiUrl }/users`);
         setUserData(response.data); 
 
       } catch (error) {

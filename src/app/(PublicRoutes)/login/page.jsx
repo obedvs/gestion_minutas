@@ -12,6 +12,7 @@ import {
   PaperAirplaneIcon,
   PlusCircleIcon,
 } from "@heroicons/react/24/outline";
+import { apiUrl } from "@/config/config";
 
 const Login = () => {
 
@@ -41,7 +42,7 @@ const Login = () => {
       password
     };
   
-    fetch("/api/users", {
+    fetch(`${ apiUrl }/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +76,7 @@ const Login = () => {
     if (addUsers) {
       handleAddUsers();
     } else {
-      fetch("/api/users")
+      fetch(`${ apiUrl }/users`)
         .then((response) => response.json())
         .then((users) => {
           console.log(users);

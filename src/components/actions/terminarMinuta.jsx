@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { apiUrl } from "@/config/config";
 
 function TerminarMinuta({ props }) {
   const { id } = props;
@@ -11,7 +12,7 @@ function TerminarMinuta({ props }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/api/minutes/${id}`);
+        const response = await axios.get(`${ apiUrl }/minutes/${id}`);
         setMinutaData(response.data);
       } catch (error) {
         console.error(error);
@@ -35,7 +36,7 @@ function TerminarMinuta({ props }) {
         cancelButtonText: 'No, cancelar',
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.put(`/api/minutes/${id}`, datosMinuta)
+          axios.put(`${ apiUrl }/minutes/${id}`, datosMinuta)
             .then(response => {
               Swal.fire({
                 title: 'Minuta Terminada',

@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { Button, Icon, Subtitle, Tab, TabGroup, TabList, TextInput } from "@tremor/react";
 import { ArrowUturnLeftIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline";
+import { apiUrl } from "@/config/config";
 
 
 const NuevaMinutas = ({ params }) => {
@@ -29,7 +30,7 @@ const NuevaMinutas = ({ params }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/api/agreement/${idA}`);
+        const response = await axios.get(`${ apiUrl }/agreement/${idA}`);
         setAcuerdoData(response.data);
         setFormData(response.data);
         setEditableDescription(response.data.descripcion);
@@ -50,7 +51,7 @@ const NuevaMinutas = ({ params }) => {
     e.preventDefault();
     // console.log(formData);
     try {
-      const response = await axios.put(`/api/agreement/${idA}`, {
+      const response = await axios.put(`${ apiUrl }/agreement/${idA}`, {
         ...formData,
         descripcion: editableDescription
       });

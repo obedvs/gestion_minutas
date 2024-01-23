@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { Title, Icon, Button, SearchSelect, SearchSelectItem, TextInput, Subtitle } from "@tremor/react";
 import { ArrowUturnLeftIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline'
+import { apiUrl } from "@/config/config";
 
 const NuevoAcuerdo = ({ params }) => {
   const { idA } = params;
@@ -29,7 +30,7 @@ const NuevoAcuerdo = ({ params }) => {
   useEffect(() => {
     const fetchResponsables = async () => {
       try {
-        const response = await axios.get("/api/users/");
+        const response = await axios.get(`${ apiUrl }/users/`);
         setResponsables(response.data);
       } catch (error) {
         console.error(error);
@@ -44,7 +45,7 @@ const NuevoAcuerdo = ({ params }) => {
     const emailc = responsables.find(user => user._id === formData.responsablec_id ).email;
     const emailr = responsables.find(user => user._id === formData.responsabler_id ).email;
     // TODO: CHANGE THIS TO THE REAL URL
-    axios.post(`/api/send_email_3`, {
+    axios.post(`${ apiUrl }/send_email_3`, {
       subject: `Responsable de Acuerdo - ${formData.acuerdo}`,
       acuerdo: formData.acuerdo,
       date: formData.fecha,

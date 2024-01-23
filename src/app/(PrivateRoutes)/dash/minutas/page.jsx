@@ -9,6 +9,7 @@ import { Metric, Divider, TextInput, Button } from "@tremor/react";
 import { MagnifyingGlassCircleIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 // import User from '@components/Usuarios';
 import { useRouter } from 'next/navigation';
+import { apiUrl } from '@/config/config';
 
 const Minutas = () => {
 
@@ -25,7 +26,7 @@ const Minutas = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`/api/minutes/`);
+      const response = await axios.get(`${ apiUrl }/minutes/`);
       const reversedMinutaData = response.data.reverse();
       setMinutaData(reversedMinutaData); 
     } catch (error) {
@@ -67,7 +68,7 @@ const Minutas = () => {
       <Metric className='mt-4 mb-2'>Activas</Metric>
       {filteredMinutaA.length > 0 ? (
         <div className='md:grid grid-cols-2 lg:grid-cols-3 gap-2'>
-          {React.Children.toArray(filteredMinutaA.map(u => u.tema && <Activa {...u} updateData={fetchData} User = {idUserCoockie } />))}
+          {React.Children.toArray(filteredMinutaA.map(u => u.tema && <Activa {...u} updateData={ fetchData } User={ idUserCoockie } />))}
         </div>
       ) : (
         <p>No se encontraron minutas activas.</p>

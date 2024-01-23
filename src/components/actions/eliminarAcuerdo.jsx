@@ -3,6 +3,7 @@
 import React from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { apiUrl } from '@/config/config';
 
 function EliminarAcuerdo({ props }) {
   const { id } = props;
@@ -17,7 +18,7 @@ function EliminarAcuerdo({ props }) {
   }).then((result) => {
     if (result.isConfirmed) {
       axios
-        .delete(`/api/agreement/${id}`)
+        .delete(`${ apiUrl }/agreement/${id}`)
         .then(response => {
           console.log('Eliminación exitosa');
           Swal.fire({

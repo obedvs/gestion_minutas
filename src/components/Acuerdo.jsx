@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import EliminarAcuerdo from "./actions/eliminarAcuerdo";
 import { Button, Card, Text, Title } from "@tremor/react";
 import { ChevronDoubleRightIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { apiUrl } from "@/config/config";
 
 
 export const Acuerdos = (acuerdo) => {
@@ -20,11 +21,11 @@ export const Acuerdos = (acuerdo) => {
     const fetchData = async () => {
       try {
         const responseRC = await axios.get(
-          `/api/users/${acuerdo.responsablec_id}`
+          `${ apiUrl }/users/${acuerdo.responsablec_id}`
         );
         setUserRCData(responseRC.data);
         const responseRR = await axios.get(
-          `/api/users/${acuerdo.responsabler_id}`
+          `${ apiUrl }/users/${acuerdo.responsabler_id}`
         );
         setUserRRData(responseRR.data);
       } catch (error) {

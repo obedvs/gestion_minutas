@@ -8,6 +8,7 @@ import { Button, Card, Divider, Icon, Text, Title } from '@tremor/react';
 import { BriefcaseIcon, BuildingOffice2Icon, LockClosedIcon, PencilSquareIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { EditProfileForm } from '@/components/EditProfileForm';
 import { EditPasswordForm } from '@/components/EditPasswordForm';
+import { apiUrl } from '@/config/config';
 
 
 const Perfil = () =>{
@@ -22,7 +23,7 @@ const Perfil = () =>{
 
 	const fetchData = async () => {
 		try {
-			const response = await axios.get(`/api/users/${idU}`);
+			const response = await axios.get(`${ apiUrl }/users/${idU}`);
 			setUserData(response.data);
 			console.log(response.data);
 

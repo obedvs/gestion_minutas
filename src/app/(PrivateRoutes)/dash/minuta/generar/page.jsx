@@ -8,6 +8,7 @@ import "@/styles/generarMinuta.css";
 import Swal from "sweetalert2";
 import { Title, Icon, Button, TextInput, Subtitle, SearchSelect, SearchSelectItem, MultiSelect, MultiSelectItem } from "@tremor/react";
 import { ArrowUturnLeftIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline'
+import { apiUrl } from "@/config/config";
 
 const NuevaMinutas = () => {
   const [usersData, setUserData] = useState([]);
@@ -30,7 +31,7 @@ const NuevaMinutas = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/users/");
+        const response = await axios.get(`${ apiUrl }/users/`);
         setUserData(response.data);
       } catch (error) {
         console.error(error);
@@ -52,7 +53,7 @@ const NuevaMinutas = () => {
     if ( ids.length === 0 ) return;
     const emails = ids.map((id) => usersData.find( user => user._id === id ).email);
     // TODO: CHANGE THIS TO THE REAL URL
-    axios.post('/api/send_email', {
+    axios.post(`${ apiUrl }/send_email`, {
       subject: datosMinuta.asunto,
       date: datosMinuta.fecha,
       time: datosMinuta.hora,
@@ -73,7 +74,7 @@ const NuevaMinutas = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
       axios
-        .post("/api/minutes/", {
+        .post(`${ apiUrl }/minutes/`, {
           ...datosMinuta,
           descripcion: editableDescription,
         })

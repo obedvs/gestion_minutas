@@ -1,9 +1,10 @@
 "use client"
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button, Title, TextInput, Subtitle } from "@tremor/react"
 import { ArchiveBoxXMarkIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
+import { apiUrl } from "@/config/config";
 
 export const EditPasswordForm = ({ setIsEditOpen, updateProfilePage, userId }) => {
 
@@ -15,7 +16,7 @@ export const EditPasswordForm = ({ setIsEditOpen, updateProfilePage, userId }) =
 
     const updateProfile = async() => {
         try {
-            const response = await axios.put(`/api/users/${userId}`, { password: newPassowrd });
+            const response = await axios.put(`${ apiUrl }/users/${userId}`, { password: newPassowrd });
             if ( response.status === 200 ) {
                 setIsEditOpen(false);
             }

@@ -3,6 +3,7 @@
 import React from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { apiUrl } from '@/config/config';
 
 function EliminarMinuta( props ) {
   const { id } = props;
@@ -21,7 +22,7 @@ function EliminarMinuta( props ) {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`/api/minutes/${id}`)
+          .delete(`${ apiUrl }/minutes/${id}`)
           .then(response => {
             console.log('Eliminación exitosa');
             Swal.fire({

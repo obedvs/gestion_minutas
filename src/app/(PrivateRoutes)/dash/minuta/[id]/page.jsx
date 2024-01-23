@@ -8,6 +8,7 @@ import "@/styles/acuerdos.css";
 import { Acuerdos } from "@/components/Acuerdo";
 import { Text, Title, Icon, Divider, Button } from "@tremor/react";
 import { PlusCircleIcon, ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
+import { apiUrl } from '@/config/config';
 
 const MinutaSeleccionada = ({ params }) => {
   const { id } = params;
@@ -18,7 +19,7 @@ const MinutaSeleccionada = ({ params }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/api/agreement/`);
+        const response = await axios.get(`${ apiUrl }/agreement/`);
         setAcuerdoData(response.data.filter((u) => u.minuta_id === id));
       } catch (error) {
         console.error(error);

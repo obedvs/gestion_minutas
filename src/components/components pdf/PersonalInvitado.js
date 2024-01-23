@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { apiUrl } from '@/config/config';
 
 function PersonalInvitado(props) {
   const tamañoInvitados = props.data.usuario_id.length;
@@ -15,12 +16,12 @@ function PersonalInvitado(props) {
       try {
         // Mapear los usuarios de manera asíncrona
         const promiseUsuarios = props.data.usuario_id.map(async (usuario) => {
-          const responseUsuario = await axios.get(`/api/users/${usuario}`);
+          const responseUsuario = await axios.get(`${ apiUrl }/users/${usuario}`);
           return responseUsuario.data;
         });
 
         // Obtener datos de firmas
-        const responseSigns = await axios.get(`/api/signs/${props.data._id}`);
+        const responseSigns = await axios.get(`${ apiUrl }/signs/${props.data._id}`);
         const signData = responseSigns.data;
 
         // Esperar a que se completen todas las solicitudes de usuarios
@@ -58,12 +59,21 @@ function PersonalInvitado(props) {
       }
     }
 
+    // Obtener la cadena del array signsData
+    const token = signsData.find(minute => minute.user_id === item._id)?.sign || "";
+
+    // Obtener la longitud de la cadena
+    const tokenLength = token.length;
+
+    // Dividir la cadena a la mitad y agregar un espacio
+    const tokenFormatted = tokenLength !== 0 ? token.slice(0, tokenLength / 2) + " " + token.slice(tokenLength / 2) : "";
+
     return (
       <div className={className} id={index === 14 || index === 31 ? "elementoSiguiente2" : ""} key={index}>
         <div className="center p-2">{index === 14 ? "a---" : index === 15 ? "b---" : ""}{item.nombre} {item.apellido_paterno} {item.apellido_materno}</div>
         <div className="center p-2">{item.cargo}</div>
         <div className="center p-2">
-          <p>{signsData.find(minute => minute.user_id === item._id)?.sign || ""}</p>
+          <p>{tokenFormatted}</p>
         </div>
       </div>
     );
