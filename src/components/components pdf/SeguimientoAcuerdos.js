@@ -19,9 +19,9 @@ function SeguimientoAcuerdos(props) {
 
     return (
       <div className={className} id={index === 18 ? 'elementoSiguiente2' : null} key={index}>
-        <div className='center p-2'>{item.acuerdo}</div>
-        <div className='center p-2'>{item.estatus}</div>
-        <div className='center p-2'>
+        <div className='center'>{item.acuerdo}</div>
+        <div className='center'>{item.estatus}</div>
+        <div className='center noborder'>
           {parser(item.descripcion || "<p>No existe el reporte de estado</p>")}
         </div>
       </div>
@@ -32,26 +32,26 @@ function SeguimientoAcuerdos(props) {
     tamAcuerdos >= 15 ||
     (tamaño >= 17 && tamAcuerdos >= 20) ||
     (tamaño >= 27 && tamaño < 30)
-      ? 'pepe1 p-1'
+      ? 'pepe1'
       : (tamaño >= 12 && tamaño < 15) || (tamaño >= 18 && tamAcuerdos >= 10) || tamaño >= 30
-      ? 'pepe p-1'
+      ? 'pepe'
       : '';
 
   return (
     <div className={`contenedor ${renderizadoCondicionado}`} id={tamAcuerdos >= 15 ? 'elementoSiguiente2' : null}>
-      <div className='cont1 bg-red-600 text-white h-16 flex justify-center items-center'>
+      <div className='cont1'>
         <h3>Seguimiento de Acuerdos Anteriores</h3>
       </div>
       <div className='cuart-cont2'>
-        <div className='cuart1-cab flex justify-between'>
-          <div className='center w-1/3 p-2'>
-            <h5 className="font-bold">Acuerdo</h5>
+        <div className='cuart1-cab'>
+          <div className='center'>
+            <h5>Acuerdo</h5>
           </div>
-          <div className='center w-1/3 p-2'>
-            <h5 className="font-bold">Estado</h5>
+          <div className='center'>
+            <h5>Estado</h5>
           </div>
-          <div className='center w-1/3 p-2'>
-            <h5 className="font-bold">Reporte de Estado</h5>
+          <div className='center noborder'>
+            <h5>Reporte de Estado</h5>
           </div>
         </div>
         {acuerdos}

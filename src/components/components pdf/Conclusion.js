@@ -17,10 +17,10 @@ function Conclusion(props) {
   }
   return (
     <div className={`contenedor ordenDia ${containerClass}`} >
-      <div className="cont1 bg-red-600 text-white h-16 flex justify-center items-center">
+      <div className="cont1">
         <h3>Conclusión</h3>
       </div>
-      <div className="ter-cont2 p-2">
+      <div className="ter-cont2">
         {parser(conclusionBD || "<p>No existe conclusion</p>")}
       </div>
     </div>

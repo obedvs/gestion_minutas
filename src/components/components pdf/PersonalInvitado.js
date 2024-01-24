@@ -47,15 +47,15 @@ function PersonalInvitado(props) {
     if (wordsCount <= 149) {}
     if (wordsCount >= 150 && wordsCount < 180) {
       if (index === 14 || index === 30) {
-        className += " pepe1 p-2";
+        className += " pepe1";
       } else if (index === 15 || index === 32) {
-        className += " pepe p-2";
+        className += " pepe";
       }
     } else if (wordsCount >= 180 && wordsCount < 200) {
       if (index === 0) {
-        className += " pepe1 p-2";
+        className += " pepe1";
       } else if (index === 1) {
-        className += " pepe p-2";
+        className += " pepe";
       }
     }
 
@@ -70,9 +70,9 @@ function PersonalInvitado(props) {
 
     return (
       <div className={className} id={index === 14 || index === 31 ? "elementoSiguiente2" : ""} key={index}>
-        <div className="center p-2">{index === 14 ? "a---" : index === 15 ? "b---" : ""}{item.nombre} {item.apellido_paterno} {item.apellido_materno}</div>
-        <div className="center p-2">{item.cargo}</div>
-        <div className="center p-2">
+        <div className="center">{index === 14 ? "a---" : index === 15 ? "b---" : ""}{item.nombre} {item.apellido_paterno} {item.apellido_materno}</div>
+        <div className="center">{item.cargo}</div>
+        <div className="center noborder">
           <p>{tokenFormatted}</p>
         </div>
       </div>
@@ -83,25 +83,25 @@ function PersonalInvitado(props) {
     (tamañoInvitados >= 9 && tamañoInvitados <= 15) ||
     (tamañoInvitados >= 18 && tamAcuerdos >= 10) ||
     tamañoInvitados >= 25
-      ? "contenedor personalInvitado pepe1"
-      : "contenedor personalInvitado pepe";
+      ? "contenedor pepe1"
+      : "contenedor pepe";
 
   return (
     <div className={containerClassName} id={(tamañoInvitados >= 9 && tamañoInvitados <= 15) || (tamañoInvitados >= 18 && tamAcuerdos >= 10) || tamañoInvitados >= 25 ? "elementoSiguiente2" : ""}>
-      <div className="cont1 p-2 bg-red-600 text-white h-16 flex justify-center items-center">
+      <div className="cont1">
         <h3>Personal Invitado a la Reunión</h3>
       </div>
 
       <div className="cuart-cont2">
-        <div className="cuart1-cab flex justify-between">
-          <div className="center p-2 w-1/3">
-            <h5 className="font-bold ">Nombre</h5>
+        <div className="cuart1-cab">
+          <div className="center">
+            <h5>Nombre</h5>
           </div>
-          <div className="center w-1/3 p-2">
-            <h5 className="font-bold">Cargo</h5>
+          <div className="center">
+            <h5>Cargo</h5>
           </div>
-          <div className="center w-1/3 p-2">
-            <h5 className="font-bold">Firma</h5>
+          <div className="center noborder">
+            <h5>Firma</h5>
           </div>
         </div>
         {invitados}

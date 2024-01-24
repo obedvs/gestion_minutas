@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import "@/styles/pdf.css";
 import InformacionGeneral from '@/components/components pdf/InformacionGeneral';
@@ -12,63 +12,14 @@ import Conclusion from "@/components/components pdf/Conclusion";
 import html2pdf from 'html2pdf.js';
 import { apiUrl } from '@/config/config';
 
-const generatePDF = async (idM) => {
-  const element = document.getElementById('divToPrint');
-
-  try {
-    const pdfBlob = await html2pdf().from(element).set({
-      margin: 5,
-      filename: `archivo-${idM}.pdf`,
-      jsPDF: {
-        format: 'letter',
-        orientation: 'portrait',
-      },
-      html2canvas: {},
-      pagebreak: {
-        before: '#elementoSiguiente',
-        after: '#elementoSiguiente2',
-      },
-      pageMargins: {
-        top: 20,
-        bottom: 20,
-        left: 20,
-        right: 20,
-      },
-      onBeforeSave: function () {
-        var style = document.createElement('style');
-        style.innerHTML = `
-          .pagina {
-            padding: 20px;
-          }
-          .elementoSiguiente-pagebreak {
-            page-break-after: avoid;
-          }
-        `;
-        document.head.appendChild(style);
-      },
-    })
-    .toPdf()
-    .output('blob')
-    .then(async (pdfBlob) => {
-      const formData = new FormData();
-      formData.append('pdf', new Blob([pdfBlob], { type: 'application/pdf' }), `archivo-${idM}.pdf`);
-
-      await axios.post(`${ apiUrl }/save-pdf/${idM}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-    })
-  } catch (error) {
-    console.error(error);
-  }
-};
 
 const PDFViewer = ({ params }) => {
   const { idM } = params;
   const [minutaData, setMinutaData] = useState(null);
   const [acuerdoData, setAcuerdoData] = useState([]);
 
+  const divToPrint = useRef(null);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -83,14 +34,74 @@ const PDFViewer = ({ params }) => {
         console.error(error);
       }
     };
-
+    
     fetchData();
   }, [idM]);
+  
+  const generatePDF = async (idM) => {
+    const element = divToPrint.current;
+
+    if (element) {
+      const pdfOptions = {
+        margin: 5,
+          filename: `archivo-${idM}.pdf`,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: {
+            scale: 3,
+            letterRendering: true,
+          },
+          jsPDF: {
+            unit: 'mm',
+            format: 'letter',
+            orientation: 'portrait',
+          },
+          pagebreak: {
+            before: '#elementoSiguiente',
+            after: '#elementoSiguiente2',
+          },
+          pageMargins: {
+            top: 20,
+            bottom: 20,
+            left: 20,
+            right: 20,
+          },
+          onBeforeSave: function () {
+            var style = document.createElement('style');
+            style.innerHTML = `
+              .pagina {
+                padding: 20px;
+              }
+              .elementoSiguiente-pagebreak {
+                page-break-after: avoid;
+              }
+            `;
+            document.head.appendChild(style);
+          },
+      }
+      try {
+        const pdfBlob = await html2pdf().from(element).set(pdfOptions)
+        .toPdf()
+        .output('blob')
+        .then(async (pdfBlob) => {
+          const formData = new FormData();
+          formData.append('pdf', new Blob([pdfBlob], { type: 'application/pdf' }), `archivo-${idM}.pdf`);
+    
+          await axios.post(`${ apiUrl }/save-pdf/${idM}`, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+        })
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
   if (minutaData) {
     return (
       <div >
-        <div className="cont-general" id="divToPrint">
+        <div className="cont-general" ref={divToPrint}>
           <section className="part1">
             {minutaData && acuerdoData ? (
               <>

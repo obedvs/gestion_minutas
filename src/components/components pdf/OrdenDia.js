@@ -14,11 +14,11 @@ function OrdenDia(props) {
   const pepeId = hasReached100Words ? "elementoSiguiente2" : "";
 
   return (
-    <div className={`contenedor ordenDia ${pepeClass}`} id={pepeId}>
-      <div className="cont1 bg-red-600 text-white h-16 flex justify-center items-center p-1">
+    <div className={`contenedor ${pepeClass}`} id={pepeId}>
+      <div className="cont1">
         <h3>Órden del Día</h3>
       </div>
-      <div className="ter-cont2 p-1">
+      <div className="ter-cont2">
         {parser(props.data.descripcion || "<p>No existe orden del dia</p>")}
       </div>
     </div>
