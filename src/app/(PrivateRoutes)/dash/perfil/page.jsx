@@ -34,7 +34,7 @@ const Perfil = () =>{
 
     if(userData){
         return(
-            <Card className='w-full h-full flex flex-col justify-between'>
+            <Card className='w-full h-full flex flex-col justify-around'>
                 <div>
                     <div
                         className='w-full flex flex-col justify-center items-center'

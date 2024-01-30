@@ -15,12 +15,16 @@ const MinutaSeleccionada = ({ params }) => {
   const router = useRouter();
 
   const [acuerdoData, setAcuerdoData] = useState([]);
+  const [minutaData, setMinutaData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${ apiUrl }/agreement/`);
         setAcuerdoData(response.data.filter((u) => u.minuta_id === id));
+
+        const responseMinute = await axios.get(`${ apiUrl }/minutes/${id}`);
+        setMinutaData(responseMinute.data);
       } catch (error) {
         console.error(error);
       }
@@ -62,14 +66,14 @@ const MinutaSeleccionada = ({ params }) => {
       </div>
 
       <Title className='mt-4 md:mt-7'>
-        {id}
+        {minutaData.tema}
       </Title>
       <Divider className='mt-2' />
       <div className='md:grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2'>
       {
         acuerdoData.length > 0
         ? acuerdoData.reverse().map((u, index) => (
-          <Acuerdos key={index} {...u} />
+          <Acuerdos key={index} minuta={minutaData} {...u} />
           ))
         : <Text className='mt-4'>
           No hay acuerdos registrados

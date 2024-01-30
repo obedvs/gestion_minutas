@@ -79,7 +79,7 @@ const Login = () => {
       fetch(`${ apiUrl }/users`)
         .then((response) => response.json())
         .then((users) => {
-          console.log(users);
+          // console.log(users);
 
           const user = users.find((user) => user.email === email);
 

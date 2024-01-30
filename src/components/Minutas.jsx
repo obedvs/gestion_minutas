@@ -7,7 +7,7 @@ import {
   AiFillFilePdf,
 } from 'react-icons/ai';
 import { Title, Text, Card, Button } from '@tremor/react';
-import { PencilIcon, TrashIcon, ChevronDoubleRightIcon  } from '@heroicons/react/24/outline'
+import { PencilIcon, TrashIcon, ChevronDoubleRightIcon, EyeIcon  } from '@heroicons/react/24/outline'
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { apiUrl } from '@/config/config';
@@ -19,7 +19,7 @@ export const Activa = (minuta) => {
 
   // const [eliminarMinutaVisible, setEliminarMinutaVisible] = useState(false);
   // const [terminarMinutaVisible, setTerminarMinutaVisible] = useState(false);
-
+  
   // Eliminar Minuta
   const handleEliminarClick = (id) => {
     // e.preventDefault();
@@ -135,8 +135,8 @@ export const Activa = (minuta) => {
   if (minuta.estatus === "Activo") {
     return (
       <Card className='w-full mb-4 flex flex-col justify-between'>
-        <div className='flex'>
-          <div className={minuta.responsable === minuta.User ? `flex flex-col w-2/3 justify-center gap-1` : `flex flex-col w-full justify-center gap-1`}>
+        <div className='flex h-full'>
+          <div className={minuta.usuario_id.find(user => user === minuta.User) || minuta.responsable === minuta.User ? `flex flex-col w-2/3 justify-center gap-1` : `flex flex-col w-full justify-center gap-1`}>
             <div className='flex items-center gap-1'>
               <Title className='!text-sm'>Tema:</Title>
               <Text>{minuta.tema}</Text>
@@ -154,10 +154,9 @@ export const Activa = (minuta) => {
               <Text>{minuta.hora}</Text>
             </div>
           </div>
-
-          <div className={minuta.responsable === minuta.User ? `w-1/3 flex flex-col gap-2` : `hidden`}>
+          <div className={minuta.usuario_id.find(user => user === minuta.User) || minuta.responsable === minuta.User ? `w-1/3 flex flex-col gap-2` : `hidden`}>
             <Button
-              className='w-full'
+              className={minuta.responsable === minuta.User ? `w-full` : `hidden`}
               icon={ PencilIcon }
               iconPosition='left'
               color='blue'
@@ -168,7 +167,18 @@ export const Activa = (minuta) => {
               Editar
             </Button>
             <Button
-              className='w-full'
+              className={minuta.usuario_id.find(user => user === minuta.User) && minuta.responsable !== minuta.User ? `w-full` : `hidden`}
+              icon={ EyeIcon }
+              iconPosition='left'
+              color='blue'
+              size='xs'
+              variant='secondary'
+              onClick={() => router.push(`/dash/minuta/ver/${minuta._id}`)}
+            >
+              Ver
+            </Button>
+            <Button
+              className={minuta.usuario_id.find(user => user === minuta.User) || minuta.responsable === minuta.User ? `w-full` : `hidden`}
               icon={ ChevronDoubleRightIcon }
               iconPosition='right'
               color='blue'
@@ -185,13 +195,13 @@ export const Activa = (minuta) => {
               color='red'
               size='xs'
               onClick={() => handleEliminarClick(minuta._id)}
+              disabled={minuta.responsable === minuta.User ? false : true}
             >
               Eliminar
             </Button>
-            {/* {eliminarMinutaVisible && <EliminarMinuta id={minuta._id} />} */}
           </div>
         </div>
-        <div className={minuta.responsable === minuta.User ? `w-full mt-2` : `hidden`}>
+        <div className={minuta.usuario_id.find(user => user === minuta.User) || minuta.responsable === minuta.User ? `w-full mt-2` : `hidden`}>
           <Button
             className='w-full'
             icon={ AiFillCheckCircle }
@@ -199,10 +209,10 @@ export const Activa = (minuta) => {
             color='green'
             size='xs'
             onClick={() => handleTerminarClick(minuta._id)}
+            disabled={minuta.responsable === minuta.User ? false : true}
           >
             Terminar
           </Button>
-          {/* {terminarMinutaVisible && <TerminarMinuta id={minuta._id} />} */}
         </div>
       </Card>
     );

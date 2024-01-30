@@ -3,30 +3,29 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import EliminarAcuerdo from "./actions/eliminarAcuerdo";
+import Swal from "sweetalert2";
 import { Button, Card, Text, Title } from "@tremor/react";
 import { ChevronDoubleRightIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { apiUrl } from "@/config/config";
+import Cookies from "js-cookie";
 
 
-export const Acuerdos = (acuerdo) => {
+export const Acuerdos = ( acuerdo ) => {
 
   const router = useRouter();
 
   const [userRCData, setUserRCData] = useState(null);
   const [userRRData, setUserRRData] = useState(null);
-  const [eliminarAcuerdoVisible, setEliminarAcuerdoVisible] = useState(false);
+
+  const idUserCoockie = Cookies.get('idUser');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const responseRC = await axios.get(
-          `${ apiUrl }/users/${acuerdo.responsablec_id}`
-        );
+        const responseRC = await axios.get(`${ apiUrl }/users/${acuerdo.responsablec_id}`);
         setUserRCData(responseRC.data);
-        const responseRR = await axios.get(
-          `${ apiUrl }/users/${acuerdo.responsabler_id}`
-        );
+
+        const responseRR = await axios.get(`${ apiUrl }/users/${acuerdo.responsabler_id}`);
         setUserRRData(responseRR.data);
       } catch (error) {
         console.error(error);
@@ -36,8 +35,46 @@ export const Acuerdos = (acuerdo) => {
     fetchData();
   }, [acuerdo.responsablec_id, acuerdo.responsabler_id]);
 
-  const handleEliminarClick = () => {
-    setEliminarAcuerdoVisible(true);
+  const handleEliminarClick = ( id ) => {
+    Swal.fire({
+      title: 'Eliminar Acuerdo',
+      text: '¿Deseas Eliminar el Acuerdo?',
+      icon: 'warning',
+      confirmButtonText: 'Sí, eliminar',
+      showCancelButton: true,
+      cancelButtonText: 'No, cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`${ apiUrl }/agreement/${id}`)
+          .then(response => {
+            console.log('Eliminación exitosa');
+            Swal.fire({
+              title: 'Acuerdo Eliminado',
+              text: 'Se eliminó correctamente el Acuerdo',
+              icon: 'success',
+              confirmButtonText: 'OK',
+            }).then(
+              ()=> window.location.reload()
+            )
+          })
+          .catch(error => {
+            console.error('Error al eliminar:', error);
+            Swal.fire({
+              title: 'Error!',
+              text: 'Error al eliminar el Acuerdo',
+              icon: 'error',
+              confirmButtonText: 'Cool',
+            });
+          });
+      } else {
+        Swal.fire({
+          title: 'Acuerdo No Eliminado',
+          text: 'No se ha Eliminado el Acuerdo',
+          icon: 'info',
+        });
+      }
+    });
   };
 
   return (
@@ -49,15 +86,15 @@ export const Acuerdos = (acuerdo) => {
             <Text>{acuerdo.acuerdo}</Text>
           </div>
           <div className='flex items-center gap-1'>
-            <Title className='!text-sm'>Responsable de revisar:</Title>
+            <Title className='!text-sm'>Revisión:</Title>
             <Text>{userRRData?.nombre}</Text>
           </div>
           <div className='flex items-center gap-1'>
-            <Title className='!text-sm'>Responsable de cumplir:</Title>
+            <Title className='!text-sm'>Cumplimiento:</Title>
             <Text>{userRCData?.nombre}</Text>
           </div>
           <div className='flex items-center gap-1'>
-            <Title className='!text-sm'>Fecha de compromiso:</Title>
+            <Title className='!text-sm'>Fecha compromiso:</Title>
             <Text>{acuerdo.fecha}</Text>
           </div>
           <div className='flex items-center gap-1'>
@@ -75,6 +112,7 @@ export const Acuerdos = (acuerdo) => {
             size='xs'
             variant='secondary'
             onClick={() => router.push(`/dash/acuerdo/editar/${acuerdo._id}`)}
+            disabled={acuerdo.minuta.responsable === idUserCoockie ? false : true}
           >
             Editar
           </Button>
@@ -96,11 +134,11 @@ export const Acuerdos = (acuerdo) => {
             color='red'
             variant='secondary'
             size='xs'
-            onClick={handleEliminarClick}
+            onClick={() => handleEliminarClick(acuerdo._id)}
+            disabled={acuerdo.minuta.responsable === idUserCoockie ? false : true}
           >
             Eliminar
           </Button>
-          {eliminarAcuerdoVisible && <EliminarAcuerdo id={acuerdo._id} />}
         </div>
       </div>
   </Card>

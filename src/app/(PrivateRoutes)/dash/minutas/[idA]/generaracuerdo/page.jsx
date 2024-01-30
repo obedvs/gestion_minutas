@@ -86,7 +86,7 @@ const NuevoAcuerdo = ({ params }) => {
     }
     try {
       const response = await axios.post(
-        "/api/agreement/", {
+        `${ apiUrl }/agreement/`, {
           ...formData,
           descripcion: editableDescription
         }

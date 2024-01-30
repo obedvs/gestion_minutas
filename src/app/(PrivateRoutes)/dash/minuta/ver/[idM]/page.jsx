@@ -115,6 +115,7 @@ const EditarMinuta = ({ params }) => {
           placeholder='Asunto'
           value={formData.asunto}
           onChange={handleInputChange}
+          disabled
         />
 
         <Subtitle className='mt-4'>Responsable</Subtitle>
@@ -123,6 +124,7 @@ const EditarMinuta = ({ params }) => {
           name='responsable'
           value={formData.responsable}
           onValueChange={(value) => setFormData({ ...formData, responsable: value })}
+          disabled
         >
           {usersData.map((user) => (
             <SelectItem key={user._id} value={user._id}>
@@ -142,6 +144,7 @@ const EditarMinuta = ({ params }) => {
               placeholder='Fecha'
               value={formData.fecha}
               onChange={handleInputChange}
+              disabled
             />
           </div>
           
@@ -155,6 +158,7 @@ const EditarMinuta = ({ params }) => {
               placeholder='Hora'
               value={formData.hora}
               onChange={handleInputChange}
+              disabled
             />
           </div>
         </div>
@@ -169,6 +173,7 @@ const EditarMinuta = ({ params }) => {
           placeholder='Tema'
           value={formData.tema}
           onChange={handleInputChange}
+          disabled
         />
 
         <Subtitle className="mt-2">Area</Subtitle>
@@ -179,6 +184,7 @@ const EditarMinuta = ({ params }) => {
           placeholder='Area'
           value={formData.area}
           onChange={handleInputChange}
+          disabled
         />
 
         <Subtitle className="mt-2">Lugar</Subtitle>
@@ -189,6 +195,7 @@ const EditarMinuta = ({ params }) => {
           placeholder='Lugar'
           value={formData.lugar}
           onChange={handleInputChange}
+          disabled
         />
 
         <Subtitle className="mt-2">Invitados</Subtitle>
@@ -197,6 +204,7 @@ const EditarMinuta = ({ params }) => {
           name='usuario_id'
           value={formData.usuario_id}
           onValueChange={(value) => setFormData({ ...formData, usuario_id: value })}
+          disabled
         >
           {/* <SearchSelectItem value=''>Selecciona un usuario</SearchSelectItem> */}
           {usersData.map((user) => (
@@ -208,10 +216,10 @@ const EditarMinuta = ({ params }) => {
 
         <Subtitle className="mt-2">Descripcion</Subtitle>
 
-        <EditText value={ editableDescription } setValue={ setEditableDescription } read={ false } />
+        <EditText value={ editableDescription } setValue={ setEditableDescription } read={ true } />
 
         <Button
-          className='w-full mt-4'
+          className='w-full mt-4 hidden'
           type='submit'
           color='green'
           icon={ PaperAirplaneIcon }

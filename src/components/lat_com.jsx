@@ -11,7 +11,7 @@ const ROUTES = [
   { label: 'Inicio', path: '/dash/inicio', icon: HomeIcon },
   { label: 'Minutas', path: '/dash/minutas', icon: DocumentIcon },
   { label: 'Perfil', path: '/dash/perfil', icon: UserIcon },
-  { label: 'Usuarios', path: '/dash/usuarios', icon: UserGroupIcon },
+  // { label: 'Usuarios', path: '/dash/usuarios', icon: UserGroupIcon },
 ]
 
 function LatBar({ children }) {

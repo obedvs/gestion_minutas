@@ -9,10 +9,12 @@ import Swal from "sweetalert2";
 import { Button, Icon, Subtitle, Tab, TabGroup, TabList, TextInput } from "@tremor/react";
 import { ArrowUturnLeftIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline";
 import { apiUrl } from "@/config/config";
+import Cookies from "js-cookie";
 
 
 const NuevaMinutas = ({ params }) => {
   const { idA } = params;
+  const idUserCoockie = Cookies.get('idUser');
   const [acuerdoData, setAcuerdoData] = useState(null);
   const [formData, setFormData] = useState({
     asunto: "",
@@ -24,6 +26,7 @@ const NuevaMinutas = ({ params }) => {
     estatus: ""
   });
   const [ editableDescription, setEditableDescription ] = useState('');
+  const [ minutaData, setMinutaData ] = useState(null);
 
   const router = useRouter();
 
@@ -34,6 +37,9 @@ const NuevaMinutas = ({ params }) => {
         setAcuerdoData(response.data);
         setFormData(response.data);
         setEditableDescription(response.data.descripcion);
+
+        const minuta = await axios.get(`${ apiUrl }/minutes/${response.data.minuta_id}`);
+        setMinutaData(minuta.data);
       } catch (error) {
         console.error(error);
       }
@@ -62,7 +68,6 @@ const NuevaMinutas = ({ params }) => {
           icon: 'success',
           confirmButtonText: 'OK',
         }).then(
-          // ()=>window.location.reload()
           router.back()
         )
       }else{
@@ -84,8 +89,7 @@ const NuevaMinutas = ({ params }) => {
     }
   };
 
-  if (acuerdoData) {
-    console.log(acuerdoData.acuerdo);
+  if (acuerdoData && minutaData) {
     return (
       <>
 
@@ -117,19 +121,19 @@ const NuevaMinutas = ({ params }) => {
             index={ formData.estatus === 'Terminado' ? 0 : formData.estatus === 'Pendiente' ? 1 : formData.estatus === 'Cancelado' ? 2 : 3 }
           >
             <TabList variant="solid">
-              <Tab>Terminado</Tab>
-              <Tab>Pendiente</Tab>
-              <Tab>Cancelado</Tab>
-              <Tab>Pospuesto</Tab>
+              <Tab disabled={ minutaData.responsable === idUserCoockie ? false : true }>Terminado</Tab>
+              <Tab disabled={ minutaData.responsable === idUserCoockie ? false : true }>Pendiente</Tab>
+              <Tab disabled={ minutaData.responsable === idUserCoockie ? false : true }>Cancelado</Tab>
+              <Tab disabled={ minutaData.responsable === idUserCoockie ? false : true }>Pospuesto</Tab>
             </TabList>
           </TabGroup>
 
           <Subtitle className="mt-2">Descripcion</Subtitle>
 
-          <EditText value={ editableDescription } setValue={ setEditableDescription } />
+          <EditText value={ editableDescription } setValue={ setEditableDescription } read={ minutaData.responsable === idUserCoockie ? false : true } />
 
           <Button
-            className='w-full mt-4'
+            className={minutaData.responsable === idUserCoockie ? `w-full mt-4` : `hidden`}
             type='submit'
             color='green'
             icon={ PaperAirplaneIcon }
