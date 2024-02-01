@@ -5,8 +5,7 @@ import axios from 'axios';
 import { apiUrl } from '@/config/config';
 
 function PersonalInvitado(props) {
-  const tamañoInvitados = props.data.usuario_id.length;
-  console.log(tamañoInvitados);
+  const tamInvitados = props.data.usuario_id.length;
   const tamAcuerdos = props.dataAcu;
   const [usuarioData, setUsuariosData] = useState([]);
   const [signsData, setSignsData] = useState([]);
@@ -40,8 +39,6 @@ function PersonalInvitado(props) {
   }, [props.data.usuario_id, props.data._id]);
 
   const wordsCount = props.data.descripcion.trim().split(/\s+/).length;
-  console.log('usuarioData', usuarioData);
-  console.log('signsData', signsData);
   const invitados = usuarioData.map((item, index) => {
     let className = "cuart2-bod";
     if (wordsCount <= 149) {}
@@ -70,9 +67,9 @@ function PersonalInvitado(props) {
 
     return (
       <div className={className} id={index === 14 || index === 31 ? "elementoSiguiente2" : ""} key={index}>
-        <div className="center">{index === 14 ? "a---" : index === 15 ? "b---" : ""}{item.nombre} {item.apellido_paterno} {item.apellido_materno}</div>
-        <div className="center">{item.cargo}</div>
-        <div className="center noborder">
+        <div className="centercontent">{index === 14 ? "a---" : index === 15 ? "b---" : ""}{item.nombre} {item.apellido_paterno} {item.apellido_materno}</div>
+        <div className="centercontent">{item.cargo}</div>
+        <div className="centercontent noborder">
           <p>{tokenFormatted}</p>
         </div>
       </div>
@@ -80,28 +77,28 @@ function PersonalInvitado(props) {
   });
 
   const containerClassName =
-    (tamañoInvitados >= 9 && tamañoInvitados <= 15) ||
-    (tamañoInvitados >= 18 && tamAcuerdos >= 10) ||
-    tamañoInvitados >= 25
+    (tamInvitados >= 9 && tamInvitados <= 15) ||
+    (tamInvitados >= 18 && tamAcuerdos >= 10) ||
+    tamInvitados >= 25
       ? "contenedor pepe1"
       : "contenedor pepe";
 
   return (
-    <div className={containerClassName} id={(tamañoInvitados >= 9 && tamañoInvitados <= 15) || (tamañoInvitados >= 18 && tamAcuerdos >= 10) || tamañoInvitados >= 25 ? "elementoSiguiente2" : ""}>
+    <div className={containerClassName} id={(tamInvitados >= 9 && tamInvitados <= 15) || (tamInvitados >= 18 && tamAcuerdos >= 10) || tamInvitados >= 25 ? "elementoSiguiente2" : ""}>
       <div className="cont1">
-        <h3>Personal Invitado a la Reunión</h3>
+        <h3>ASISTENTES</h3>
       </div>
 
       <div className="cuart-cont2">
         <div className="cuart1-cab">
           <div className="center">
-            <h5>Nombre</h5>
+            <h5>NOMBRE</h5>
           </div>
           <div className="center">
-            <h5>Cargo</h5>
+            <h5>CARGO</h5>
           </div>
           <div className="center noborder">
-            <h5>Firma</h5>
+            <h5>FIRMA O MOTIVO DE INASISTENCIA</h5>
           </div>
         </div>
         {invitados}

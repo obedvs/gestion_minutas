@@ -34,8 +34,14 @@ const Minutas = () => {
     }
   };
 
-  const filteredMinutaA = minutaData ? minutaData.filter(u => u.tema && u.tema.toLowerCase().includes(searchText.toLowerCase())) : [];
-  const filteredMinutaF = minutaData ? minutaData.filter(u => u.tema && u.tema.toLowerCase().includes(searchText.toLowerCase())) : [];
+  const filteredMinutaA = minutaData ? minutaData.filter(u => u.tema && u.tema.toLowerCase().includes(searchText.toLowerCase()) && u.estatus === "Activo" && (u.responsable === idUserCoockie || u.usuario_id.find(user => user === idUserCoockie))) : [];
+  const filteredMinutaF = minutaData ? minutaData.filter(u => u.tema && u.tema.toLowerCase().includes(searchText.toLowerCase()) && u.estatus === "Inactivo" && (u.responsable === idUserCoockie || u.usuario_id.find(user => user === idUserCoockie))) : [];
+
+  const elementosRenderizadosA = filteredMinutaA.map(u => u && u.tema && <Activa {...u} updateData={ fetchData } User={ idUserCoockie } />);
+  const elementosRenderizadosF = filteredMinutaF.map(u => u && u.tema && <Finalizada {...u} />);
+
+  console.log(filteredMinutaA);
+  console.log(filteredMinutaF);
 
   return (
     <>
@@ -68,19 +74,19 @@ const Minutas = () => {
       <Metric className='mt-4 mb-2'>Activas</Metric>
       {filteredMinutaA.length > 0 ? (
         <div className='md:grid grid-cols-2 lg:grid-cols-3 gap-2'>
-          {React.Children.toArray(filteredMinutaA.map(u => u.tema && <Activa {...u} updateData={ fetchData } User={ idUserCoockie } />))}
+          {React.Children.toArray(elementosRenderizadosA)}
         </div>
       ) : (
-        <p>No se encontraron minutas activas.</p>
+        <p>No se encontraron minutas activas asociadas.</p>
       )}
 
       <Metric className='mt-4 mb-2'>Finalizadas</Metric>
       {filteredMinutaF.length > 0 ? (
         <div className='md:grid grid-cols-2 lg:grid-cols-3 gap-2'>
-          {React.Children.toArray(filteredMinutaF.map(u => u.tema && <Finalizada {...u} />))}
+          {React.Children.toArray(elementosRenderizadosF)}
         </div>
       ) : (
-        <p>No se encontraron minutas finalizadas.</p>
+        <p>No se encontraron minutas finalizadas asociadas.</p>
       )}
     </>
   );

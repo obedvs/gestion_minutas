@@ -1,5 +1,6 @@
+import { apiUrl } from '@/config/config';
+import axios from 'axios';
 import React from 'react';
-import parser from 'html-react-parser';
 
 function SeguimientoAcuerdos(props) {
   const tamaño = props.data && props.data.usuario_id ? props.data.usuario_id.length : 0;
@@ -8,6 +9,16 @@ function SeguimientoAcuerdos(props) {
   const estatusAcuerdos = tamAcuerdos.map((acuerdo) => {
     return acuerdo;
   });
+
+  const fetchUsuario = async (id) => {
+    try {
+			const response = await axios.get(`${ apiUrl }/users/${id}`);
+			return response.data.nombre + ' ' + response.data.apellido_paterno + ' ' + response.data.apellido_materno;
+
+		} catch (error) {
+			console.error(error);
+		}
+  };
 
   const acuerdos = estatusAcuerdos.map((item, index) => {
     const className =
@@ -19,11 +30,9 @@ function SeguimientoAcuerdos(props) {
 
     return (
       <div className={className} id={index === 18 ? 'elementoSiguiente2' : null} key={index}>
-        <div className='center'>{item.acuerdo}</div>
-        <div className='center'>{item.estatus}</div>
-        <div className='center noborder'>
-          {parser(item.descripcion || "<p>No existe el reporte de estado</p>")}
-        </div>
+        <div className='centercontent'>{item.acuerdo}</div>
+        <div className='centercontent'>{fetchUsuario(item.responsablec_id)}</div>
+        <div className='centercontent noborder'>{item.fecha}</div>
       </div>
     );
   });
@@ -40,18 +49,18 @@ function SeguimientoAcuerdos(props) {
   return (
     <div className={`contenedor ${renderizadoCondicionado}`} id={tamAcuerdos >= 15 ? 'elementoSiguiente2' : null}>
       <div className='cont1'>
-        <h3>Seguimiento de Acuerdos Anteriores</h3>
+        <h3>COMPROMISOS ASUMIDOS</h3>
       </div>
       <div className='cuart-cont2'>
         <div className='cuart1-cab'>
           <div className='center'>
-            <h5>Acuerdo</h5>
+            <h5>TAREA/ACTIVIDAD</h5>
           </div>
           <div className='center'>
-            <h5>Estado</h5>
+            <h5>RESPONSABLE</h5>
           </div>
           <div className='center noborder'>
-            <h5>Reporte de Estado</h5>
+            <h5>FECHA ENTREGA</h5>
           </div>
         </div>
         {acuerdos}

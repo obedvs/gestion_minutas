@@ -48,11 +48,23 @@ body{
 
 .contenedor {
   width: 100%;
-  margin: 10px auto;
+  margin: 0.2rem auto;
   /* padding-top: 2rem ; */
   border: 1px solid #000;
 }
 
+.tGeneral, .tResponsable {
+  border-collapse: collapse;
+  width: 100%;
+  /* margin: 20px; */
+}
+
+.tGeneral > tbody > tr > td, .tResponsable > tbody > tr > td {
+  width: 50%;
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 0 0 0.6rem 0.5rem;
+}
 
 .cont1 {
   /* border-radius: 5px; */
@@ -60,7 +72,7 @@ body{
   background-color: #B11830;
   color: white;
   height: auto;
-  padding: 0 0 1rem 0;
+  padding: 0 0 0.8rem 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,7 +81,8 @@ body{
 
 .cont1 > h3 {
   text-align: center;
-  font-size: 1.3rem;
+  font-weight: 700;
+  font-size: 1.1rem;
 }
 
 .cont2 {
@@ -115,7 +128,16 @@ body{
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 0 0 1rem 0 !important;
+  font-weight: 600;
+  padding: 0 0 0.6rem 0 !important;
+}
+
+.centercontent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 0 0.6rem 0 !important;
 }
 
 .cont-medio > .c2 {
@@ -199,17 +221,12 @@ body{
   border-top: 1px solid #000;
 }
 .ter-cont2{
-  padding: 0 0 0.8rem 1rem;
+  padding: 0 0.5rem 0.8rem 0.5rem;
 }
 
 .e_firma{
   text-align: justify;
   font-size: 10px;
-}
-
-td{
-  text-align: center;
-  padding: 5px 0;
 }
 
 .cuart-cont2{
@@ -227,7 +244,7 @@ td{
 .cuart1-cab > div{
   border: 1px solid #000;
   background-color: #B11830;
-  height: 50px;
+  height: auto;
   width: 100%;
   border-left: none;
   border-bottom: none;
@@ -235,7 +252,7 @@ td{
 
 .cuart1-cab > div > h5{
   color: white;
-  font-size: 16px;
+  font-size: 0.8rem;
   text-align: center;
 }
 

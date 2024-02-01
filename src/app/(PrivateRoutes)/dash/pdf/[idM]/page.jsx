@@ -1,17 +1,18 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from 'react';
+import { Metric } from '@tremor/react';
+import html2pdf from 'html2pdf.js';
+import Swal from 'sweetalert2';
 import axios from 'axios';
 import "@/styles/pdf.css";
 import InformacionGeneral from '@/components/components pdf/InformacionGeneral';
 import Uni from "@/components/components pdf/Uni";
-import OrdenDia from "@/components/components pdf/OrdenDia";
+import ResponsableMinuta from "@/components/components pdf/OrdenDia";
 import PersonalInvitado from "@/components/components pdf/PersonalInvitado";
 import SeguimientoAcuerdos from "@/components/components pdf/SeguimientoAcuerdos";
 import Conclusion from "@/components/components pdf/Conclusion";
-import html2pdf from 'html2pdf.js';
 import { apiUrl } from '@/config/config';
-
 
 const PDFViewer = ({ params }) => {
   const { idM } = params;
@@ -91,46 +92,61 @@ const PDFViewer = ({ params }) => {
               'Content-Type': 'multipart/form-data',
             },
           });
-        })
+        });
+        Swal.fire({
+          title: '¡PDF Generado!',
+          text: 'El PDF se ha generado y guardado exitosamente.',
+          icon: 'success',
+          showCancelButton: false,
+          confirmButtonColor: "#22C55E",
+          confirmButtonText: 'Continuar',
+        });
       } catch (error) {
         console.error(error);
+        Swal.fire({
+          title: '¡Error al generar PDF!',
+          text: 'Se ha producido un error al intentar generar o guardar el PDF.',
+          icon: 'error',
+          showConfirmButton: false,
+          cancelButtonText: 'Cerrar',
+        });
       }
     }
   };
 
   if (minutaData) {
     return (
-      <div >
+      <div className='flex flex-col justify-center items-center' >
+        <div className='md:flex gap-2 w-full max-w-[8.5in]'>
+          <Metric className='w-full md:w-2/3 text-center mb-3 md:mb-0'>Previsualización de la Minuta</Metric>
+          <button onClick={() => generatePDF(idM)}
+            className="w-full md:w-1/3 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >Generar PDF</button>
+        </div>
         <div className="cont-general" ref={divToPrint}>
           <section className="part1">
             {minutaData && acuerdoData ? (
               <>
-                <Uni data={minutaData} />
+                <Uni />
                 <InformacionGeneral data={minutaData} dataAcu={acuerdoData} />
-                <OrdenDia data={minutaData} dataAcu={acuerdoData} />
                 <PersonalInvitado data={minutaData} dataAcu={acuerdoData} />
+                <Conclusion data={minutaData} dataAcu={acuerdoData} />
               </>
             ) : (
               <p>Cargando datos...</p>
-            )}
+              )}
           </section>
           <section className="part2">
-            {minutaData &&acuerdoData ? (
+            {minutaData && acuerdoData ? (
               <>
                 <SeguimientoAcuerdos data={minutaData} dataAcu={acuerdoData} />
-                <Conclusion data={minutaData} dataAcu={acuerdoData} />
+                <ResponsableMinuta data={minutaData} dataAcu={acuerdoData} />
               </>
             ) : (
               <p>Cargando datos...</p>
             )}
           </section>
         </div>
-        <button
-          onClick={() => generatePDF(idM)}
-          className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
-          Generar PDF
-        </button>
       </div>
     );
   } else {

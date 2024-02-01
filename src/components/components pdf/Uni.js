@@ -1,13 +1,13 @@
 import React from 'react';
 // import logo from '/assets/img/logoujed.png';
 
-function Uni(props) {
+function Uni() {
   return (
     <div className="contenedor">
       <div className="cont1">
-        <h3>Universidad Juárez del Estado de Durango</h3>
+        <h3>MINUTA DE REUNIÓN</h3>
       </div>
-      <div className="cont2">
+      {/* <div className="cont2">
         <div className="cont-der">
           <img src="/assets/img/logoujed.png" alt="Logo UJED"/>
         </div>
@@ -30,7 +30,7 @@ function Uni(props) {
             <p><b>Fecha</b>: 2023-05-04</p>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

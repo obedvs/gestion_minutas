@@ -1,28 +1,25 @@
 import React from 'react';
-import parser from 'html-react-parser';
 
-function OrdenDia(props) {
-  if (props.data.descripcion) {
-    var ordenBD = props.data.descripcion;
-  } else {
-    var ordenBD = "";
-  }
-  const wordsCount = ordenBD.trim().split(/\s+/).length;
-
-  const hasReached100Words = wordsCount >= 150;
-  const pepeClass = hasReached100Words ? "pepe" : "";
-  const pepeId = hasReached100Words ? "elementoSiguiente2" : "";
+function ResponsableMinuta(props) {
 
   return (
-    <div className={`contenedor ${pepeClass}`} id={pepeId}>
+    <div className='contenedor'>
       <div className="cont1">
-        <h3>Órden del Día</h3>
+        <h3>RESPONSABLE ELABORACIÓN DE MINUTA</h3>
       </div>
-      <div className="ter-cont2">
-        {parser(props.data.descripcion || "<p>No existe orden del dia</p>")}
-      </div>
+      <table className='tResponsable'>
+        <tbody>
+          <tr>
+            <td><b>Nombre</b>:</td>
+            <td><b>Fecha próxima reunión</b>:</td>
+          </tr>
+          <tr>
+            <td><b>Cargo</b>:</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
 
-export default OrdenDia;
+export default ResponsableMinuta;
