@@ -66,41 +66,51 @@ const PDFViewer = ({ params }) => {
             left: 20,
             right: 20,
           },
-          onBeforeSave: function () {
-            var style = document.createElement('style');
-            style.innerHTML = `
-              .pagina {
-                padding: 20px;
-              }
-              .elementoSiguiente-pagebreak {
-                page-break-after: avoid;
-              }
-            `;
-            document.head.appendChild(style);
-          },
+          // onBeforeSave: function () {
+          //   var style = document.createElement('style');
+          //   style.innerHTML = `
+          //     .pagina {
+          //       padding: 20px;
+          //     }
+          //     .elementoSiguiente-pagebreak {
+          //       page-break-after: avoid;
+          //     }
+          //   `;
+          //   document.head.appendChild(style);
+          // },
       }
       try {
         const pdfBlob = await html2pdf().from(element).set(pdfOptions)
         .toPdf()
-        .output('blob')
-        .then(async (pdfBlob) => {
-          const formData = new FormData();
-          formData.append('pdf', new Blob([pdfBlob], { type: 'application/pdf' }), `archivo-${idM}.pdf`);
+        .output('blob');
+
+        const formData = new FormData();
+        formData.append('pdf', new Blob([pdfBlob], { type: 'application/pdf' }), `archivo-${idM}.pdf`);
     
-          await axios.post(`${ apiUrl }/save-pdf/${idM}`, formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          });
+        const response = await axios.post(`${ apiUrl }/save-pdf/${idM}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          responseType: 'blob',
         });
+
+        // Maneja la respuesta del servidor
+        const downloadLink = document.createElement('a');
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        downloadLink.href = url;
+        downloadLink.setAttribute('download', `archivo-${idM}.pdf`);
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+
         Swal.fire({
           title: '¡PDF Generado!',
-          text: 'El PDF se ha generado y guardado exitosamente.',
+          text: 'El PDF se ha generado, guardado y descargado exitosamente.',
           icon: 'success',
           showCancelButton: false,
           confirmButtonColor: "#22C55E",
           confirmButtonText: 'Continuar',
-        });
+        })
       } catch (error) {
         console.error(error);
         Swal.fire({
