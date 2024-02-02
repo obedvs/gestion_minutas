@@ -1,7 +1,7 @@
 import React from 'react';
 
 function InformacionGeneral(props) {
-  console.log(props.data.tema);
+  // console.log(props.data.tema);
   return (
     <div className="contenedor">
       <table className='tGeneral'>
@@ -12,7 +12,7 @@ function InformacionGeneral(props) {
           </tr>
           <tr>
             <td><b>Fecha</b>: {props.data.fecha}</td>
-            <td><b>Hora Final</b>: </td>
+            <td><b>Hora Final</b>: {props.data?.horaFinal}</td>
           </tr>
           <tr>
             <td><b>Objetivo</b>: {props.data.tema}</td>

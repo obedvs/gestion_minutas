@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Metric } from '@tremor/react';
+import { Button, Icon, Metric } from '@tremor/react';
 import html2pdf from 'html2pdf.js';
 import Swal from 'sweetalert2';
 import axios from 'axios';
@@ -13,8 +13,14 @@ import PersonalInvitado from "@/components/components pdf/PersonalInvitado";
 import SeguimientoAcuerdos from "@/components/components pdf/SeguimientoAcuerdos";
 import Conclusion from "@/components/components pdf/Conclusion";
 import { apiUrl } from '@/config/config';
+import Loading from '@/components/Loading';
+import { ArrowUturnLeftIcon, DocumentArrowDownIcon, DocumentIcon } from '@heroicons/react/24/outline';
+import { useRouter } from 'next/navigation';
 
 const PDFViewer = ({ params }) => {
+
+  const router = useRouter();
+
   const { idM } = params;
   const [minutaData, setMinutaData] = useState(null);
   const [acuerdoData, setAcuerdoData] = useState([]);
@@ -127,11 +133,26 @@ const PDFViewer = ({ params }) => {
   if (minutaData) {
     return (
       <div className='flex flex-col justify-center items-center' >
-        <div className='md:flex gap-2 w-full max-w-[8.5in]'>
-          <Metric className='w-full md:w-2/3 text-center mb-3 md:mb-0'>Previsualización de la Minuta</Metric>
-          <button onClick={() => generatePDF(idM)}
-            className="w-full md:w-1/3 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >Generar PDF</button>
+        <div className='md:flex w-full max-w-[8.5in] justify-around'>
+          <div className='w-full md:w-1/6'>
+            <Icon className='w-10 h-10 cursor-pointer' 
+              icon={ ArrowUturnLeftIcon } 
+              onClick={ () => router.back() } 
+              variant='solid' 
+              color='red'
+              tooltip='Regresar'
+            />
+          </div>
+          <Metric className='w-full md:w-4/6 text-center mb-3 md:mb-0'>Previsualización de la Minuta</Metric>
+          <Button onClick={() => generatePDF(idM)}
+            className="w-full md:w-1/6 focus:outline-none focus:shadow-outline"
+            // className="w-full md:w-1/4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            icon={DocumentArrowDownIcon}
+            iconPosition="right"
+            variant='primary'
+            color='green'
+            tooltip="Generar, guardar y descargar PDF."
+          >PDF</Button>
         </div>
         <div className="cont-general" ref={divToPrint}>
           <section className="part1">
@@ -160,7 +181,7 @@ const PDFViewer = ({ params }) => {
       </div>
     );
   } else {
-    return <p>Error</p>;
+    return <Loading/>;
   }
 };
 

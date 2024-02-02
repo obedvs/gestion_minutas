@@ -13,7 +13,7 @@ function SeguimientoAcuerdos(props) {
   const fetchUsuario = async (id) => {
     try {
 			const response = await axios.get(`${ apiUrl }/users/${id}`);
-			return response.data.nombre + ' ' + response.data.apellido_paterno + ' ' + response.data.apellido_materno;
+			return response.data?.nombre + ' ' + response.data?.apellido_paterno + ' ' + response.data?.apellido_materno;
 
 		} catch (error) {
 			console.error(error);

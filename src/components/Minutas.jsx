@@ -46,9 +46,7 @@ export const Activa = (minuta) => {
                 icon: 'success',
                 confirmButtonColor: "#d33",
                 confirmButtonText: 'Cerrar',
-              }).then(() => {
-                router.push('/dash/minutas');
-              })
+              }).then(() => window.location.reload());
             })
             .catch(error => {
               console.error('Error al eliminar:', error);
@@ -75,62 +73,61 @@ export const Activa = (minuta) => {
   };
 
   // Terminar Minuta
-  const [minutaData, setMinutaData] = useState(null);
   const handleTerminarClick = (id) => {
     // Get data
     const fetchData = async () => {
       try {
         const response = await axios.get(`${ apiUrl }/minutes/${id}`);
-        setMinutaData(response.data);
+        if (response.data) {
+          const datosMinuta = {
+            ...response.data,
+            estatus: "Inactivo"
+          };
+          Swal.fire({
+            title: 'Terminar Minuta',
+            text: '¿Desea Terminar la Minuta?',
+            icon: 'question',
+            confirmButtonText: 'Sí, terminar',
+            showCancelButton: true,
+            cancelButtonText: 'No, cancelar',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              axios.put(`${ apiUrl }/minutes/${id}`, datosMinuta)
+                .then(response => {
+                  Swal.fire({
+                    title: 'Minuta Terminada',
+                    text: 'La Minuta se dio por Terminada Correctamente.',
+                    icon: 'success',
+                    confirmButtonColor: "#d33",
+                    confirmButtonText: 'Cerrar',
+                  }).then(() => window.location.reload());
+                })
+                .catch(error => {
+                  console.error('Error al guardar los datos:', error);
+                  Swal.fire({
+                    title: '¡Error!',
+                    text: 'Error al terminar Minuta.',
+                    icon: 'error',
+                    confirmButtonColor: "#d33",
+                    confirmButtonText: 'Cerrar'
+                  });
+                });
+            } else {
+              Swal.fire({
+                title: 'Minuta No Terminada',
+                text: 'No se ha dado por Terminada la Minuta.',
+                icon: 'info',
+              });
+            }
+          });
+        }
       } catch (error) {
         console.error(error);
       }
     };
+    
     fetchData();
 
-    if (minutaData) {
-      const datosMinuta = {
-        ...minutaData,
-        estatus: "Inactivo"
-      };
-      Swal.fire({
-        title: 'Terminar Minuta',
-        text: '¿Desea Terminar la Minuta?',
-        icon: 'question',
-        confirmButtonText: 'Sí, terminar',
-        showCancelButton: true,
-        cancelButtonText: 'No, cancelar',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          axios.put(`${ apiUrl }/minutes/${id}`, datosMinuta)
-            .then(response => {
-              Swal.fire({
-                title: 'Minuta Terminada',
-                text: 'La Minuta se dio por Terminada Correctamente.',
-                icon: 'success',
-                confirmButtonColor: "#d33",
-                confirmButtonText: 'Cerrar',
-              }).then(() => window.location.reload());
-            })
-            .catch(error => {
-              console.error('Error al guardar los datos:', error);
-              Swal.fire({
-                title: '¡Error!',
-                text: 'Error al terminar Minuta.',
-                icon: 'error',
-                confirmButtonColor: "#d33",
-                confirmButtonText: 'Cerrar'
-              });
-            });
-        } else {
-          Swal.fire({
-            title: 'Minuta No Terminada',
-            text: 'No se ha dado por Terminada la Minuta.',
-            icon: 'info',
-          });
-        }
-      });
-    }
   };
 
   return (

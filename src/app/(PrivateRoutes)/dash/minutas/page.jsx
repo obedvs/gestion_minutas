@@ -40,9 +40,6 @@ const Minutas = () => {
   const elementosRenderizadosA = filteredMinutaA.map(u => u && u.tema && <Activa {...u} updateData={ fetchData } User={ idUserCoockie } />);
   const elementosRenderizadosF = filteredMinutaF.map(u => u && u.tema && <Finalizada {...u} />);
 
-  console.log(filteredMinutaA);
-  console.log(filteredMinutaF);
-
   return (
     <>
       <Metric>Minutas</Metric>

@@ -2,10 +2,10 @@
 const Loading = () => {
 
     return (
-        <section className='absolute right-1/2 top-1/2'>
+        <section className='absolute w-[-webkit-fill-available] h-[-webkit-fill-available] flex justify-center items-center'>
 
             <div
-                className='h-8 w-8 animate-spin rounded-full border-4 border-solid border-main border-r-transparent align-[-0.125em] text-black motion-reduce:animate-[spin_1.5s_linear_infinite]'
+                className=' h-8 w-8 animate-spin rounded-full border-4 border-solid border-main border-r-transparent align-[-0.125em] text-black motion-reduce:animate-[spin_1.5s_linear_infinite]'
                 role='status'
             >
                 <span

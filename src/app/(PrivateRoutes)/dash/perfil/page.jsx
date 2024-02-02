@@ -17,15 +17,15 @@ const Perfil = () =>{
 	const [ isEditProfileFormOpen, setIsEditProfileFormOpen ] = useState(false);
     const [ isEditPasswordFormOpen, setIsEditPasswordFormOpen ] = useState(false);
 
-  useEffect(() => {
-    	fetchData();
-  }, []);
+	useEffect(() => {
+			fetchData();
+	}, []);
 
 	const fetchData = async () => {
 		try {
 			const response = await axios.get(`${ apiUrl }/users/${idU}`);
 			setUserData(response.data);
-			console.log(response.data);
+			// console.log(response.data);
 
 		} catch (error) {
 			console.error(error);
@@ -34,7 +34,7 @@ const Perfil = () =>{
 
     if(userData){
         return(
-            <Card className='w-full h-full flex flex-col justify-around'>
+            <Card className='w-full h-full flex flex-col justify-between'>
                 <div>
                     <div
                         className='w-full flex flex-col justify-center items-center'

@@ -17,6 +17,7 @@ const NuevaMinutas = () => {
     responsable: "",
     fecha: "",
     hora: "",
+    horaFinal: "",
     tema: "",
     area: "",
     lugar: "",
@@ -149,7 +150,7 @@ const NuevaMinutas = () => {
             />
           </div>
           <div className="w-full">
-            <Subtitle className="mt-2">Hora</Subtitle>
+            <Subtitle className="mt-2">Hora Inicio</Subtitle>
             <TextInput
               className='w-full mt-1'
               label='Hora'
@@ -157,6 +158,18 @@ const NuevaMinutas = () => {
               name='hora'
               placeholder='Hora'
               value={datosMinuta.hora}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="w-full">
+            <Subtitle className="mt-2">Hora Final</Subtitle>
+            <TextInput
+              className='w-full mt-1'
+              label='Hora'
+              type='time'
+              name='horaFinal'
+              placeholder='Hora'
+              value={datosMinuta.horaFinal}
               onChange={handleChange}
             />
           </div>
