@@ -9,6 +9,7 @@ import { BriefcaseIcon, BuildingOffice2Icon, LockClosedIcon, PencilSquareIcon, U
 import { EditProfileForm } from '@/components/EditProfileForm';
 import { EditPasswordForm } from '@/components/EditPasswordForm';
 import { apiUrl } from '@/config/config';
+import Loading from '@/components/Loading';
 
 
 const Perfil = () =>{
@@ -33,9 +34,9 @@ const Perfil = () =>{
 	};
 
     if(userData){
-        return(
+        return (
             <Card className='w-full h-full flex flex-col justify-between'>
-                <div>
+                <div className='w-full h-full flex flex-col'>
                     <div
                         className='w-full flex flex-col justify-center items-center'
                     >
@@ -79,8 +80,8 @@ const Perfil = () =>{
 
 					{
 						!isEditProfileFormOpen && !isEditPasswordFormOpen && (
-							<div className='w-full flex flex-col gap-3'>
-								<div className='flex items-center gap-3'>
+							<div className='w-1/2 flex flex-col gap-3 self-center'>
+								<div className='w-1/2 flex items-center gap-3'>
 									<Icon 
 										icon={ BriefcaseIcon }
 										size='md'
@@ -94,7 +95,7 @@ const Perfil = () =>{
 									</div>
 								</div>
 
-								<div className='flex items-center gap-3'>
+								<div className='w-1/2 flex items-center gap-3'>
 									<Icon
 										icon={ BuildingOffice2Icon }
 										size='md'
@@ -115,8 +116,9 @@ const Perfil = () =>{
 
 				{
 					!isEditProfileFormOpen && !isEditPasswordFormOpen && (
-						<div className='w-full flex justify-center gap-3'>
+						<div className='w-full flex flex-col md:flex-row justify-center gap-3'>
 							<Button
+								className='md:w-1/4 w-full'
 								variant='secondary'
 								icon={ PencilSquareIcon }
 								iconPosition='right'
@@ -126,6 +128,7 @@ const Perfil = () =>{
 							</Button>
 
 							<Button
+								className='md:w-1/4 w-full'
 								variant='secondary'
 								icon={ LockClosedIcon }
 								iconPosition='right'
@@ -140,8 +143,8 @@ const Perfil = () =>{
 
             </Card>
     )
-    }else{
-        console.log("Error de usuario");
+    } else {
+		return <Loading/>
     }
     
 }

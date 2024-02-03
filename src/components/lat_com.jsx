@@ -1,11 +1,11 @@
 "use client"
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Cookies from 'js-cookie';
 import Link from "next/link";
 import { Metric, Text, Icon } from "@tremor/react";
 import { HomeIcon, DocumentIcon, UserIcon, UserGroupIcon, Bars3Icon, XCircleIcon, ArrowLeftStartOnRectangleIcon } from '@heroicons/react/24/outline'
-import Cookies from 'js-cookie';
-import { useRouter } from "next/navigation";
 
 const ROUTES = [
   { label: 'Inicio', path: '/dash/inicio', icon: HomeIcon },

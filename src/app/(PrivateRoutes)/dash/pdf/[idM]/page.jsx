@@ -1,21 +1,21 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from 'react';
-import { Button, Icon, Metric } from '@tremor/react';
+import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import html2pdf from 'html2pdf.js';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import "@/styles/pdf.css";
-import InformacionGeneral from '@/components/components pdf/InformacionGeneral';
-import Uni from "@/components/components pdf/Uni";
-import ResponsableMinuta from "@/components/components pdf/OrdenDia";
-import PersonalInvitado from "@/components/components pdf/PersonalInvitado";
-import SeguimientoAcuerdos from "@/components/components pdf/SeguimientoAcuerdos";
-import Conclusion from "@/components/components pdf/Conclusion";
-import { apiUrl } from '@/config/config';
+import { Button, Icon, Metric } from '@tremor/react';
+import { ArrowUturnLeftIcon, DocumentArrowDownIcon } from '@heroicons/react/24/outline';
 import Loading from '@/components/Loading';
-import { ArrowUturnLeftIcon, DocumentArrowDownIcon, DocumentIcon } from '@heroicons/react/24/outline';
-import { useRouter } from 'next/navigation';
+import { apiUrl } from '@/config/config';
+import "@/styles/pdf.css";
+import Uni from "@/components/components pdf/Uni";
+import InformacionGeneral from '@/components/components pdf/InformacionGeneral';
+import PersonalInvitado from "@/components/components pdf/PersonalInvitado";
+import Conclusion from "@/components/components pdf/Conclusion";
+import SeguimientoAcuerdos from "@/components/components pdf/SeguimientoAcuerdos";
+import ResponsableMinuta from "@/components/components pdf/OrdenDia";
 
 const PDFViewer = ({ params }) => {
 

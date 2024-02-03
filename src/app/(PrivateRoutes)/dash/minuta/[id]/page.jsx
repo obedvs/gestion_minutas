@@ -61,7 +61,7 @@ const MinutaSeleccionada = ({ params }) => {
             iconPosition='right'
             color='red'
             onClick={() => router.push(`/dash/minutas/${id}/generaracuerdo`)}
-            disabled={minutaData.responable !== idUserCoockie ? false : true}
+            disabled={minutaData.responsable === idUserCoockie ? false : true}
           >
             Añadir acuerdo
           </Button>
