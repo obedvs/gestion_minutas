@@ -1,4 +1,3 @@
-import React from 'react';
 import parser from 'html-react-parser';
 
 function Conclusion(props) {

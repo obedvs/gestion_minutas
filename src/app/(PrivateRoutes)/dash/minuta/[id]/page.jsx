@@ -1,18 +1,21 @@
 "use client"
 
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useRouter } from "next/navigation";
+import Cookies from 'js-cookie';
+import axios from 'axios';
+import { Text, Title, Icon, Divider, Button } from "@tremor/react";
+import { PlusCircleIcon, ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
 import "@/styles/inicio.css";
 import "@/styles/acuerdos.css";
 import { Acuerdos } from "@/components/Acuerdo";
-import { Text, Title, Icon, Divider, Button } from "@tremor/react";
-import { PlusCircleIcon, ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
 import { apiUrl } from '@/config/config';
 
 const MinutaSeleccionada = ({ params }) => {
   const { id } = params;
   const router = useRouter();
+
+  const idUserCoockie = Cookies.get('idUser');
 
   const [acuerdoData, setAcuerdoData] = useState([]);
   const [minutaData, setMinutaData] = useState([]);
@@ -58,6 +61,7 @@ const MinutaSeleccionada = ({ params }) => {
             iconPosition='right'
             color='red'
             onClick={() => router.push(`/dash/minutas/${id}/generaracuerdo`)}
+            disabled={minutaData.responable !== idUserCoockie ? false : true}
           >
             Añadir acuerdo
           </Button>

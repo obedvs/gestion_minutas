@@ -1,6 +1,8 @@
+"use client"
+
 import { apiUrl } from '@/config/config';
 import axios from 'axios';
-import React from 'react';
+import { useEffect, useState } from 'react';
 
 function SeguimientoAcuerdos(props) {
   const tamaño = props.data && props.data.usuario_id ? props.data.usuario_id.length : 0;
@@ -10,15 +12,23 @@ function SeguimientoAcuerdos(props) {
     return acuerdo;
   });
 
-  const fetchUsuario = async (id) => {
-    try {
-			const response = await axios.get(`${ apiUrl }/users/${id}`);
-			return response.data?.nombre + ' ' + response.data?.apellido_paterno + ' ' + response.data?.apellido_materno;
+  const [usuarioData, setUsuariosData] = useState([])
 
-		} catch (error) {
-			console.error(error);
-		}
-  };
+  useEffect(() => {
+    const fetchUsuario = async () => {
+      try {
+        const promiseUsuarios = props.data.usuario_id.map(async (usuario) => {
+          const response = await axios.get(`${ apiUrl }/users/${usuario}`);
+          return response.data?.nombre + ' ' + response.data?.apellido_paterno + ' ' + response.data?.apellido_materno;
+        });
+        const usuariosData = await Promise.all(promiseUsuarios);
+        setUsuariosData(usuariosData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUsuario();
+  }, []);
 
   const acuerdos = estatusAcuerdos.map((item, index) => {
     const className =
@@ -31,7 +41,7 @@ function SeguimientoAcuerdos(props) {
     return (
       <div className={className} id={index === 18 ? 'elementoSiguiente2' : null} key={index}>
         <div className='centercontent'>{item.acuerdo}</div>
-        <div className='centercontent'>{fetchUsuario(item.responsablec_id)}</div>
+        <div className='centercontent'>{usuarioData[index]}</div>
         <div className='centercontent noborder'>{item.fecha}</div>
       </div>
     );

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { apiUrl } from '@/config/config';
 
@@ -36,7 +36,7 @@ function PersonalInvitado(props) {
     };
 
     fetchData();
-  }, [props.data.usuario_id, props.data._id]);
+  }, []);
 
   const wordsCount = props.data.descripcion.trim().split(/\s+/).length;
   const invitados = usuarioData.map((item, index) => {

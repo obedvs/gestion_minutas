@@ -1,6 +1,8 @@
+"use client"
+
 import { apiUrl } from '@/config/config';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function ResponsableMinuta(props) {
   const [nombreUsuario, setNombreUsuario] = useState('');
@@ -19,7 +21,7 @@ function ResponsableMinuta(props) {
     };
 
     fetchUsuario();
-  },[props.data.responsable])
+  },[])
 
   return (
     <div className='contenedor'>
