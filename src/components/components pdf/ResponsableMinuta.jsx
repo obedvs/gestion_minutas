@@ -21,7 +21,7 @@ function ResponsableMinuta(props) {
     };
 
     fetchUsuario();
-  },[])
+  },[props.data.responsable])
 
   return (
     <div className='contenedor'>

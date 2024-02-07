@@ -1,8 +1,8 @@
 "use client"
 
-import { apiUrl } from '@/config/config';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { apiUrl } from '@/config/config';
 
 function SeguimientoAcuerdos(props) {
   const tamaño = props.data && props.data.usuario_id ? props.data.usuario_id.length : 0;
@@ -12,39 +12,44 @@ function SeguimientoAcuerdos(props) {
     return acuerdo;
   });
 
-  const [usuarioData, setUsuariosData] = useState([])
-
+  const [usuarioData, setUsuariosData] = useState([]);
+  
   useEffect(() => {
-    const fetchUsuario = async () => {
+    const fetchUsuario = async (id) => {
       try {
-        const promiseUsuarios = props.data.usuario_id.map(async (usuario) => {
-          const response = await axios.get(`${ apiUrl }/users/${usuario}`);
-          return response.data?.nombre + ' ' + response.data?.apellido_paterno + ' ' + response.data?.apellido_materno;
+        const response = await axios.get(`${ apiUrl }/users/${id}`);
+        return response.data?.nombre + ' ' + response.data?.apellido_paterno + ' ' + response.data?.apellido_materno;
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    const fetchUsuariosData = async () => {
+      try {
+        const promises = props.dataAcu.map((item) => {
+          return fetchUsuario(item.responsablec_id);
         });
-        const usuariosData = await Promise.all(promiseUsuarios);
+    
+        const usuariosData = await Promise.all(promises);
         setUsuariosData(usuariosData);
       } catch (error) {
         console.error(error);
       }
     };
-    fetchUsuario();
-  }, []);
+    fetchUsuariosData();
+  }, [props.dataAcu]);
 
   const acuerdos = estatusAcuerdos.map((item, index) => {
-    const className =
-      index === 18
-        ? 'cuart2-bod pepe1'
-        : index === 19
-        ? 'cuart2-bod pepe'
-        : 'cuart2-bod';
+    const className = index === 18 ? 'cuart2-bod pepe1' : index === 19 ? 'cuart2-bod pepe' : 'cuart2-bod';
 
-    return (
-      <div className={className} id={index === 18 ? 'elementoSiguiente2' : null} key={index}>
-        <div className='centercontent'>{item.acuerdo}</div>
-        <div className='centercontent'>{usuarioData[index]}</div>
-        <div className='centercontent noborder'>{item.fecha}</div>
-      </div>
-    );
+    if (usuarioData) {
+      return (
+        <div className={className} id={index === 18 ? 'elementoSiguiente2' : null} key={index}>
+          <div className='centercontent'>{item.acuerdo}</div>
+          <div className='centercontent'>{usuarioData[index]}</div>
+          <div className='centercontent noborder'>{item.fecha}</div>
+        </div>
+      );
+    }
   });
 
   const renderizadoCondicionado =

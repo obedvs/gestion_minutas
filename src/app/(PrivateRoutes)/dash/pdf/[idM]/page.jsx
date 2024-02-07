@@ -12,10 +12,11 @@ import { apiUrl } from '@/config/config';
 import "@/styles/pdf.css";
 import Uni from "@/components/components pdf/Uni";
 import InformacionGeneral from '@/components/components pdf/InformacionGeneral';
+import OrdenDelDia from '@/components/components pdf/OrdenDelDia';
 import PersonalInvitado from "@/components/components pdf/PersonalInvitado";
 import Conclusion from "@/components/components pdf/Conclusion";
 import SeguimientoAcuerdos from "@/components/components pdf/SeguimientoAcuerdos";
-import ResponsableMinuta from "@/components/components pdf/OrdenDia";
+import ResponsableMinuta from "@/components/components pdf/ResponsableMinuta";
 
 const PDFViewer = ({ params }) => {
 
@@ -160,21 +161,22 @@ const PDFViewer = ({ params }) => {
               <>
                 <Uni />
                 <InformacionGeneral data={minutaData} dataAcu={acuerdoData} />
+                <OrdenDelDia data={minutaData} dataAcu={acuerdoData} />
                 <PersonalInvitado data={minutaData} dataAcu={acuerdoData} />
-                <Conclusion data={minutaData} dataAcu={acuerdoData} />
               </>
             ) : (
-              <p>Cargando datos...</p>
+              <Loading/>
               )}
           </section>
           <section className="part2">
             {minutaData && acuerdoData ? (
               <>
+                <Conclusion data={minutaData} dataAcu={acuerdoData} />
                 <SeguimientoAcuerdos data={minutaData} dataAcu={acuerdoData} />
                 <ResponsableMinuta data={minutaData} dataAcu={acuerdoData} />
               </>
             ) : (
-              <p>Cargando datos...</p>
+              <Loading/>
             )}
           </section>
         </div>

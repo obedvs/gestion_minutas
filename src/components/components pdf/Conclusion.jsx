@@ -12,7 +12,7 @@ function Conclusion(props) {
     var conclusionBD = props.data.conclusion;
     
   } else {
-    var conclusionBD = "No existen asuntos tratados";
+    var conclusionBD = "No existen asuntos tratados.";
   }
   return (
     <div className={`contenedor ordenDia ${containerClass}`} >
@@ -20,7 +20,7 @@ function Conclusion(props) {
         <h3>ASUNTOS TRATADOS</h3>
       </div>
       <div className="ter-cont2">
-        {parser(conclusionBD || "<p>No existen asuntos tratados</p>")}
+        {parser(conclusionBD || "<p>No existen asuntos tratados.</p>")}
       </div>
     </div>
   );

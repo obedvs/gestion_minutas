@@ -36,7 +36,7 @@ function PersonalInvitado(props) {
     };
 
     fetchData();
-  }, []);
+  }, [props.data.usuario_id]);
 
   const wordsCount = props.data.descripcion.trim().split(/\s+/).length;
   const invitados = usuarioData.map((item, index) => {
