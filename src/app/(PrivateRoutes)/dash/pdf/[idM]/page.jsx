@@ -155,8 +155,8 @@ const PDFViewer = ({ params }) => {
             tooltip="Generar, guardar y descargar PDF."
           >PDF</Button>
         </div>
-        <Suspense fallback={<Loading/>}>
-          <div className="cont-general" ref={divToPrint}>
+        <div className="cont-general" ref={divToPrint}>
+          <Suspense fallback={<Loading/>}>
             <section className="part1">
               {minutaData && acuerdoData ? (
                 <>
@@ -169,6 +169,8 @@ const PDFViewer = ({ params }) => {
                 <Loading/>
                 )}
             </section>
+          </Suspense>
+          <Suspense fallback={<Loading/>}>
             <section className="part2">
               {minutaData && acuerdoData ? (
                 <>
@@ -178,10 +180,10 @@ const PDFViewer = ({ params }) => {
                 </>
               ) : (
                 <Loading/>
-              )}
+                )}
             </section>
-          </div>
-        </Suspense>
+          </Suspense>
+        </div>
       </div>
     );
   } else {

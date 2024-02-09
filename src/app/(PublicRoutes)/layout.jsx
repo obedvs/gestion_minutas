@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
-import Loading from './Loading';
+import Loading from './loading';
 
 const PublicRoutes = ({ children }) => {
 
