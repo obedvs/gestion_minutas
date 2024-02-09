@@ -1,13 +1,12 @@
 "use client"
 
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import html2pdf from 'html2pdf.js';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { Button, Icon, Metric } from '@tremor/react';
 import { ArrowUturnLeftIcon, DocumentArrowDownIcon } from '@heroicons/react/24/outline';
-import Loading from '@/components/Loading';
 import { apiUrl } from '@/config/config';
 import "@/styles/pdf.css";
 import Uni from "@/components/components pdf/Uni";
@@ -17,6 +16,7 @@ import PersonalInvitado from "@/components/components pdf/PersonalInvitado";
 import Conclusion from "@/components/components pdf/Conclusion";
 import SeguimientoAcuerdos from "@/components/components pdf/SeguimientoAcuerdos";
 import ResponsableMinuta from "@/components/components pdf/ResponsableMinuta";
+import Loading from './loading';
 
 const PDFViewer = ({ params }) => {
 
@@ -155,31 +155,33 @@ const PDFViewer = ({ params }) => {
             tooltip="Generar, guardar y descargar PDF."
           >PDF</Button>
         </div>
-        <div className="cont-general" ref={divToPrint}>
-          <section className="part1">
-            {minutaData && acuerdoData ? (
-              <>
-                <Uni />
-                <InformacionGeneral data={minutaData} dataAcu={acuerdoData} />
-                <OrdenDelDia data={minutaData} dataAcu={acuerdoData} />
-                <PersonalInvitado data={minutaData} dataAcu={acuerdoData} />
-              </>
-            ) : (
-              <Loading/>
+        <Suspense fallback={<Loading/>}>
+          <div className="cont-general" ref={divToPrint}>
+            <section className="part1">
+              {minutaData && acuerdoData ? (
+                <>
+                  <Uni />
+                  <InformacionGeneral data={minutaData} dataAcu={acuerdoData} />
+                  <OrdenDelDia data={minutaData} dataAcu={acuerdoData} />
+                  <PersonalInvitado data={minutaData} dataAcu={acuerdoData} />
+                </>
+              ) : (
+                <Loading/>
+                )}
+            </section>
+            <section className="part2">
+              {minutaData && acuerdoData ? (
+                <>
+                  <Conclusion data={minutaData} dataAcu={acuerdoData} />
+                  <SeguimientoAcuerdos data={minutaData} dataAcu={acuerdoData} />
+                  <ResponsableMinuta data={minutaData} dataAcu={acuerdoData} />
+                </>
+              ) : (
+                <Loading/>
               )}
-          </section>
-          <section className="part2">
-            {minutaData && acuerdoData ? (
-              <>
-                <Conclusion data={minutaData} dataAcu={acuerdoData} />
-                <SeguimientoAcuerdos data={minutaData} dataAcu={acuerdoData} />
-                <ResponsableMinuta data={minutaData} dataAcu={acuerdoData} />
-              </>
-            ) : (
-              <Loading/>
-            )}
-          </section>
-        </div>
+            </section>
+          </div>
+        </Suspense>
       </div>
     );
   } else {

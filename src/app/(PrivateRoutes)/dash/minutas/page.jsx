@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Activa } from "@/components/Minutas";
 import { Finalizada } from "@/components/Minutas";
@@ -10,7 +10,7 @@ import { MagnifyingGlassCircleIcon, PlusCircleIcon } from '@heroicons/react/24/o
 // import User from '@components/Usuarios';
 import { useRouter } from 'next/navigation';
 import { apiUrl } from '@/config/config';
-import Loading from '@/components/Loading';
+import Loading from './loading';
 
 const Minutas = () => {
 
@@ -71,22 +71,26 @@ const Minutas = () => {
         </div>
   
         <Metric className='mt-4 mb-2'>Activas</Metric>
-        {filteredMinutaA.length > 0 ? (
-          <div className='md:grid grid-cols-2 lg:grid-cols-3 gap-2'>
-            {React.Children.toArray(elementosRenderizadosA)}
-          </div>
-        ) : (
-          <p>No se encontraron minutas activas asociadas.</p>
-        )}
+        <Suspense fallback={<Loading/>}>
+          {filteredMinutaA.length > 0 ? (
+            <div className='md:grid grid-cols-2 lg:grid-cols-3 gap-2'>
+              {React.Children.toArray(elementosRenderizadosA)}
+            </div>
+          ) : (
+            <p>No se encontraron minutas activas asociadas.</p>
+          )}
+        </Suspense>
   
         <Metric className='mt-4 mb-2'>Finalizadas</Metric>
-        {filteredMinutaF.length > 0 ? (
-          <div className='md:grid grid-cols-2 lg:grid-cols-3 gap-2'>
-            {React.Children.toArray(elementosRenderizadosF)}
-          </div>
-        ) : (
-          <p>No se encontraron minutas finalizadas asociadas.</p>
-        )}
+        <Suspense fallback={<Loading/>}>
+          {filteredMinutaF.length > 0 ? (
+            <div className='md:grid grid-cols-2 lg:grid-cols-3 gap-2'>
+              {React.Children.toArray(elementosRenderizadosF)}
+            </div>
+          ) : (
+            <p>No se encontraron minutas finalizadas asociadas.</p>
+          )}
+        </Suspense>
       </>
     );
   } else {

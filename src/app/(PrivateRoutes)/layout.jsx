@@ -4,7 +4,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import LatBar from '@/components/lat_com';
-import Loading from '@/components/Loading';
+import Loading from './loading';
 
 const PrivateRoutes = ({ children }) => {
 
