@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from "next/navigation";
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 import axios from 'axios';
 import { Text, Title, Icon, Divider, Button } from "@tremor/react";
 import { PlusCircleIcon, ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
@@ -15,10 +15,11 @@ const MinutaSeleccionada = ({ params }) => {
   const { id } = params;
   const router = useRouter();
 
-  const idUserCoockie = Cookies.get('idUser');
+  const idFromSession = sessionStorage.getItem('idUser');
+  // const idFromSession = Cookies.get('idUser');
 
-  const [acuerdoData, setAcuerdoData] = useState([]);
-  const [minutaData, setMinutaData] = useState([]);
+  const [ acuerdoData, setAcuerdoData ] = useState([]);
+  const [ minutaData, setMinutaData ] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,7 +62,7 @@ const MinutaSeleccionada = ({ params }) => {
             iconPosition='right'
             color='red'
             onClick={() => router.push(`/dash/minutas/${id}/generaracuerdo`)}
-            disabled={minutaData.responsable === idUserCoockie ? false : true}
+            disabled={minutaData.responsable === idFromSession ? false : true}
           >
             Añadir acuerdo
           </Button>

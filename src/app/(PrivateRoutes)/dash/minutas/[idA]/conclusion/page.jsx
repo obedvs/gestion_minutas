@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 // import html2pdf from 'html2pdf.js';
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { Button, Divider, Icon, Subtitle, MultiSelect, MultiSelectItem, TextInput, Metric } from "@tremor/react";
@@ -23,14 +23,15 @@ const ConclusionMinuta = ({ params }) => {
 
   const router = useRouter();
 
-  const idUserCoockie = Cookies.get('idUser');
+  const idFromSession = sessionStorage.getItem('idUser');
+  // const idFromSession = Cookies.get('idUser');
 
-  const [conclusion, setConclusion] = useState('');
-  const [fechaProximaReunion, setFechaProximaReunion] = useState("");
-  const [usersData, setUserData] = useState([]);
-  const [minutaData, setMinutaData] = useState(null);
-  // const [acuerdoData, setAcuerdoData] = useState([]);
-  const [selectedUsers, setSelectedUsers] = useState([]);
+  const [ conclusion, setConclusion ] = useState('');
+  const [ fechaProximaReunion, setFechaProximaReunion ] = useState("");
+  const [ usersData, setUserData ] = useState([]);
+  const [ minutaData, setMinutaData ] = useState(null);
+  // const [ acuerdoData, setAcuerdoData ] = useState([]);
+  const [ selectedUsers, setSelectedUsers ] = useState([]);
 
   const handleInputChange = (e) => {
     e.preventDefault();
@@ -225,7 +226,7 @@ const ConclusionMinuta = ({ params }) => {
   
         <Metric className="md:-mt-6 w-full text-center">Conclusiones de la reunion</Metric>
               <Divider className="mt-2"/>
-        <EditText value={conclusion} setValue={setConclusion} read={minutaData.responsable === idUserCoockie ? false : true} />
+        <EditText value={conclusion} setValue={setConclusion} read={minutaData.responsable === idFromSession ? false : true} />
   
         <Subtitle className="mt-2">Fecha Proxima Reunión</Subtitle>
         <TextInput
@@ -237,7 +238,7 @@ const ConclusionMinuta = ({ params }) => {
           value={fechaProximaReunion}
           onChange={handleInputChange}
           // onChange={handleInputChange}
-          disabled={minutaData.responsable === idUserCoockie ? false : true}
+          disabled={minutaData.responsable === idFromSession ? false : true}
         />
   
         <Subtitle className="mt-2">Solicitar Firma:</Subtitle>
@@ -246,7 +247,7 @@ const ConclusionMinuta = ({ params }) => {
           name="usuario_id"
           value={selectedUsers}
           onValueChange={(value) => setSelectedUsers(value)}
-          disabled={minutaData.responsable === idUserCoockie ? false : true}
+          disabled={minutaData.responsable === idFromSession ? false : true}
         >
           {usersData.map((user) => (
             <MultiSelectItem key={user._id} value={user._id}>
@@ -262,7 +263,7 @@ const ConclusionMinuta = ({ params }) => {
           icon={PaperAirplaneIcon}
           iconPosition="right"
           onClick={handleSubmit}
-          disabled={minutaData.responsable === idUserCoockie ? false : true}
+          disabled={minutaData.responsable === idFromSession ? false : true}
         >
           Guardar
         </Button>

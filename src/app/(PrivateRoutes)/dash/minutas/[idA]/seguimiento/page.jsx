@@ -9,14 +9,15 @@ import Swal from "sweetalert2";
 import { Button, Icon, Subtitle, Tab, TabGroup, TabList, TextInput } from "@tremor/react";
 import { ArrowUturnLeftIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline";
 import { apiUrl } from "@/config/config";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 
 const NuevaMinutas = ({ params }) => {
   const { idA } = params;
-  const idUserCoockie = Cookies.get('idUser');
-  const [acuerdoData, setAcuerdoData] = useState(null);
-  const [formData, setFormData] = useState({
+  const idFromSession = sessionStorage.getItem('idUser');
+  // const idFromSession = Cookies.get('idUser');
+  const [ acuerdoData, setAcuerdoData ] = useState(null);
+  const [ formData, setFormData ] = useState({
     asunto: "",
     responsablec_id: "",
     responsabler_id: "",
@@ -121,19 +122,19 @@ const NuevaMinutas = ({ params }) => {
             index={ formData.estatus === 'Terminado' ? 0 : formData.estatus === 'Pendiente' ? 1 : formData.estatus === 'Cancelado' ? 2 : 3 }
           >
             <TabList variant="solid">
-              <Tab disabled={ minutaData.responsable === idUserCoockie ? false : true }>Terminado</Tab>
-              <Tab disabled={ minutaData.responsable === idUserCoockie ? false : true }>Pendiente</Tab>
-              <Tab disabled={ minutaData.responsable === idUserCoockie ? false : true }>Cancelado</Tab>
-              <Tab disabled={ minutaData.responsable === idUserCoockie ? false : true }>Pospuesto</Tab>
+              <Tab disabled={ minutaData.responsable === idFromSession ? false : true }>Terminado</Tab>
+              <Tab disabled={ minutaData.responsable === idFromSession ? false : true }>Pendiente</Tab>
+              <Tab disabled={ minutaData.responsable === idFromSession ? false : true }>Cancelado</Tab>
+              <Tab disabled={ minutaData.responsable === idFromSession ? false : true }>Pospuesto</Tab>
             </TabList>
           </TabGroup>
 
           <Subtitle className="mt-2">Descripcion</Subtitle>
 
-          <EditText value={ editableDescription } setValue={ setEditableDescription } read={ minutaData.responsable === idUserCoockie ? false : true } />
+          <EditText value={ editableDescription } setValue={ setEditableDescription } read={ minutaData.responsable === idFromSession ? false : true } />
 
           <Button
-            className={minutaData.responsable === idUserCoockie ? `w-full mt-4` : `hidden`}
+            className={minutaData.responsable === idFromSession ? `w-full mt-4` : `hidden`}
             type='submit'
             color='green'
             icon={ PaperAirplaneIcon }

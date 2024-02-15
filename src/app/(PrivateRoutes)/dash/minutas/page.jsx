@@ -4,7 +4,7 @@ import React, { Suspense, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Activa } from "@/components/Minutas";
 import { Finalizada } from "@/components/Minutas";
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 import { Metric, Divider, TextInput, Button } from "@tremor/react";
 import { MagnifyingGlassCircleIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 // import User from '@components/Usuarios';
@@ -16,7 +16,8 @@ const Minutas = () => {
 
   const router = useRouter();
 
-  const idUserCoockie = Cookies.get('idUser');
+  const idFromSession = sessionStorage.getItem('idUser');
+  // const idFromSession = Cookies.get('idUser');
   // const UserNameCoockie = Cookies.get('UserName');
   const [minutaData, setMinutaData] = useState(null);
   const [searchText, setSearchText] = useState("");
@@ -35,10 +36,10 @@ const Minutas = () => {
     }
   };
 
-  const filteredMinutaA = minutaData ? minutaData.filter(u => u.tema && u.tema.toLowerCase().includes(searchText.toLowerCase()) && u.estatus === "Activo" && (u.responsable === idUserCoockie || u.usuario_id.find(user => user === idUserCoockie))) : [];
-  const filteredMinutaF = minutaData ? minutaData.filter(u => u.tema && u.tema.toLowerCase().includes(searchText.toLowerCase()) && u.estatus === "Inactivo" && (u.responsable === idUserCoockie || u.usuario_id.find(user => user === idUserCoockie))) : [];
+  const filteredMinutaA = minutaData ? minutaData.filter(u => u.tema && u.tema.toLowerCase().includes(searchText.toLowerCase()) && u.estatus === "Activo" && (u.responsable === idFromSession || u.usuario_id.find(user => user === idFromSession))) : [];
+  const filteredMinutaF = minutaData ? minutaData.filter(u => u.tema && u.tema.toLowerCase().includes(searchText.toLowerCase()) && u.estatus === "Inactivo" && (u.responsable === idFromSession || u.usuario_id.find(user => user === idFromSession))) : [];
 
-  const elementosRenderizadosA = filteredMinutaA.map(u => u && u.tema && <Activa {...u} updateData={ fetchData } User={ idUserCoockie } />);
+  const elementosRenderizadosA = filteredMinutaA.map(u => u && u.tema && <Activa {...u} updateData={ fetchData } User={ idFromSession } />);
   const elementosRenderizadosF = filteredMinutaF.map(u => u && u.tema && <Finalizada {...u} />);
 
   if (minutaData) {

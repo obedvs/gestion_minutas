@@ -13,8 +13,9 @@ import Loading from '@/components/Loading';
 
 
 const Perfil = () =>{
-	const idU = Cookies.get('idUser');
-	const [userData, setUserData] = useState(null);
+	const idU = sessionStorage.getItem('idUser');
+	// const idU = Cookies.get('idUser');
+	const [ userData, setUserData ] = useState(null);
 	const [ isEditProfileFormOpen, setIsEditProfileFormOpen ] = useState(false);
     const [ isEditPasswordFormOpen, setIsEditPasswordFormOpen ] = useState(false);
 

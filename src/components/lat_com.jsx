@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 import Link from "next/link";
 import { Metric, Text, Icon } from "@tremor/react";
 import { HomeIcon, DocumentIcon, UserIcon, UserGroupIcon, Bars3Icon, XCircleIcon, ArrowLeftStartOnRectangleIcon } from '@heroicons/react/24/outline'
@@ -21,11 +21,12 @@ function LatBar({ children }) {
   const [ isMenuOpen, setIsMenuOpen ] = useState(false);
 
   const onLogout = () => {
-    const cookies = Cookies.get();
-    // Iterar sobre todas las cookies y eliminarlas una por una
-    Object.keys(cookies).forEach(cookie => {
-      Cookies.remove(cookie);
-    });
+    sessionStorage.clear();
+    // const cookies = Cookies.get();
+    // // Iterar sobre todas las cookies y eliminarlas una por una
+    // Object.keys(cookies).forEach(cookie => {
+    //   Cookies.remove(cookie);
+    // });
     
     // Redirigir a la página de inicio
     router.replace('/');

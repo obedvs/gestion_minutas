@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import { Button, Card, Text, Title } from "@tremor/react";
 import { ChevronDoubleRightIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { apiUrl } from "@/config/config";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 
 export const Acuerdos = ( acuerdo ) => {
@@ -17,7 +17,8 @@ export const Acuerdos = ( acuerdo ) => {
   const [userRCData, setUserRCData] = useState(null);
   const [userRRData, setUserRRData] = useState(null);
 
-  const idUserCoockie = Cookies.get('idUser');
+  const idFromSession = sessionStorage.getItem('idUser');
+  // const idFromSession = Cookies.get('idUser');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -112,7 +113,7 @@ export const Acuerdos = ( acuerdo ) => {
             size='xs'
             variant='secondary'
             onClick={() => router.push(`/dash/acuerdo/editar/${acuerdo._id}`)}
-            disabled={acuerdo.minuta.responsable === idUserCoockie ? false : true}
+            disabled={acuerdo.minuta.responsable === idFromSession ? false : true}
           >
             Editar
           </Button>
@@ -135,7 +136,7 @@ export const Acuerdos = ( acuerdo ) => {
             variant='secondary'
             size='xs'
             onClick={() => handleEliminarClick(acuerdo._id)}
-            disabled={acuerdo.minuta.responsable === idUserCoockie ? false : true}
+            disabled={acuerdo.minuta.responsable === idFromSession ? false : true}
           >
             Eliminar
           </Button>

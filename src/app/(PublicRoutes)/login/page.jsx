@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import bcrypt from "bcryptjs";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import { Button, TextInput, Title, Text } from "@tremor/react";
 import {
   LockClosedIcon,
@@ -89,7 +89,8 @@ const Login = () => {
               .then((passwordMatch) => {
                 if (passwordMatch) {
                   console.log("Inicio de sesión exitoso");
-                  Cookies.set("idUser", user._id, { path: "/" });
+                  sessionStorage.setItem('idUser', user._id);
+                  // Cookies.set("idUser", user._id, { path: "/" });
                   router.push("/");
                 } else {
                   Swal.fire({
