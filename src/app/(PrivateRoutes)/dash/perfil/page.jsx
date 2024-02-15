@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '@/styles/perfil.css';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 import { Button, Card, Divider, Icon, Text, Title } from '@tremor/react';
 import { BriefcaseIcon, BuildingOffice2Icon, LockClosedIcon, PencilSquareIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { EditProfileForm } from '@/components/EditProfileForm';
