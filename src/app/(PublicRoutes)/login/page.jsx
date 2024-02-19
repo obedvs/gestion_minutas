@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import bcrypt from "bcryptjs";
+import axios from "axios";
 // import Cookies from "js-cookie";
 import { Button, TextInput, Title, Text } from "@tremor/react";
 import {
@@ -29,45 +30,59 @@ const Login = () => {
   const [password, setPassword] = useState("SOMOSUJED");
   const [addUsers, setAddUsers] = useState(false);
 
-  const handleAddUsers = () => {
-    const AddUsers = {
-      nombre,
-      apellido_paterno,
-      apellido_materno,
-      matricula,
-      area,
-      cargo,
-      rfc,
-      email,
-      password
-    };
-  
-    fetch(`${ apiUrl }/users`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(AddUsers),
-    })
-      .then((response) => response.json())
-      .then(() => {
+  const handleAddUsers = async () => {
+    try {
+      const users = await axios.get(`${ apiUrl }/users`)
+      const user = users.data.find((user) => user.email === email);
+
+      if (user) {
         Swal.fire({
-          title: "Usuario Guardado",
-          icon: "success",
-          confirmButtonText: "Cool"
+          title: "Este Usuario Ya Se Encuentra Registrado",
+          icon: "warning",
+          text: 'Un usuario ya se encuentra registrado con este correo electrónico, prueba iniciar sesión.',
+          confirmButtonText: "Continuar",
+          confirmButtonColor: '#22C55E'
         }).then(() => {
           router.push("/");
         });
-      })
-      .catch((error) => {
-        console.error(error);
+      } else {
+        await axios.post(`${ apiUrl }/users`, {
+          nombre,
+          apellido_paterno,
+          apellido_materno,
+          matricula,
+          area,
+          cargo,
+          rfc,
+          email,
+          password
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            Swal.fire({
+              title: "Usuario Guardado Correctamente",
+              icon: "success",
+              text: 'El usuario se ha guardado corectamente, ahora puede iniciar sesión.',
+              confirmButtonText: "Continuar",
+              confirmButtonColor: '#22C55E'
+            }).then(() => {
+              router.push("/");
+            });
+          }
+        })
+      }
+    } catch (error) {
+      console.error(error);
         Swal.fire({
-          title: "Error!",
-          text: "Error al guardar el usuario",
+          title: "¡Error!",
+          text: "Error al registrar usuario",
           icon: "error",
-          confirmButtonText: "Cool"
+          showCancelButton: true,
+          cancelButtonText: "Cerrar",
+          showConfirmButton: false
+
         });
-      });
+    }
   };
 
   const handleSubmit = (e) => {

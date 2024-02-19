@@ -153,9 +153,9 @@ const ConclusionMinuta = ({ params }) => {
     .then((response) => {
       if (response.status === 200) {
         Swal.fire({
-          title: 'Correos enviados',
+          title: 'Correos Enviados',
           icon: 'success',
-          confirmButtonText: 'Cool'
+          confirmButtonText: 'Continuar'
         }).then(() => {
           router.back();
         })
@@ -164,7 +164,7 @@ const ConclusionMinuta = ({ params }) => {
           title: 'Error!',
           text: 'Error al enviar los correos',
           icon: 'error',
-          confirmButtonText: 'Cool'
+          confirmButtonText: 'Cerrar'
         });
       }
     })
