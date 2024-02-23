@@ -1,8 +1,4 @@
-// "use client"
-
-import React from "react";
-// import Cookies from 'js-cookie';
-import { Metric, Title, Text, List, ListItem, Card } from "@tremor/react";
+import { Metric, Title, Text, List, ListItem } from "@tremor/react";
 
 const STEPTS = [
     { label: 'Entrar a la interfaz de minutas o en el botón de generar minuta.' },
@@ -14,9 +10,6 @@ const STEPTS = [
 ]
 
 const Inicio = () =>{
-    // const idU = Cookies.get('idUser');
-    // console.log("logged: " + idU);
-
     return(
         <>
         <Metric>Bienvenido</Metric>

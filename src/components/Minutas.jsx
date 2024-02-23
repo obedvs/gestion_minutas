@@ -87,6 +87,7 @@ export const Activa = (minuta) => {
             title: 'Terminar Minuta',
             text: '¿Desea Terminar la Minuta?',
             icon: 'question',
+            onfirmButtonColor: '#22C55E',
             confirmButtonText: 'Sí, terminar',
             showCancelButton: true,
             cancelButtonText: 'No, cancelar',

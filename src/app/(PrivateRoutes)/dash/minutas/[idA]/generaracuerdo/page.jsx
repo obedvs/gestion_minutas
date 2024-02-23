@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import EditText from "@/components/rich_text";
 import "@/styles/generarAcuerdo.css";
@@ -41,10 +41,8 @@ const NuevoAcuerdo = ({ params }) => {
   }, []);
 
   const handleEmails = async () => {
-    // if (id.length === 0) return;
     const emailc = responsables.find(user => user._id === formData.responsablec_id ).email;
     const emailr = responsables.find(user => user._id === formData.responsabler_id ).email;
-    // TODO: CHANGE THIS TO THE REAL URL
     axios.post(`${ apiUrl }/send_email_3`, {
       subject: `Responsable de Acuerdo - ${formData.acuerdo}`,
       acuerdo: formData.acuerdo,
@@ -55,18 +53,22 @@ const NuevoAcuerdo = ({ params }) => {
     .then((response) => {
       if (response.status === 200) {
         Swal.fire({
-          title: 'Correos enviados',
+          title: 'Acuerdo Creado y Correos enviados',
+          text: 'Se ha creado el acuerdo y se han enviado correctamente los correos electrónicos a los destinatarios seleccionados.',
           icon: 'success',
-          confirmButtonText: 'Continuar'
+          confirmButtonText: 'Continuar',
+          confirmButtonColor: '#22C55E'
         }).then(() => {
           router.push(`/dash/minuta/${idA}`);
         })
       } else {
         Swal.fire({
-          title: 'Error!',
-          text: 'Error al enviar los correos',
+          title: '¡Error!',
+          text: 'Error al enviar los correos.',
           icon: 'error',
-          confirmButtonText: 'Cool'
+          showCancelButton: true,
+          cancelButtonText: "Cerrar",
+          showConfirmButton: false
         });
       }
     })
@@ -75,15 +77,15 @@ const NuevoAcuerdo = ({ params }) => {
 
   const handleGuardarClick = async (e) => {
     e.preventDefault();
-    if (editableDescription.length > 300) {
-      Swal.fire({
-        title: "Error!",
-        text: "La descripción debe tener menos de 300 caracteres",
-        icon: "error",
-        confirmButtonText: "Entendido",
-      });
-      return; 
-    }
+    // if (editableDescription.length > 300) {
+    //   Swal.fire({
+    //     title: "Error!",
+    //     text: "La descripción debe tener menos de 300 caracteres",
+    //     icon: "error",
+    //     confirmButtonText: "Entendido",
+    //   });
+    //   return; 
+    // }
     try {
       const response = await axios.post(
         `${ apiUrl }/agreement/`, {
@@ -92,29 +94,26 @@ const NuevoAcuerdo = ({ params }) => {
         }
       );
       if (response.status === 200) {
-        Swal.fire({
-          title: "Acuerdo Creado",
-          text: "Se creó correctamente el Acuerdo",
-          icon: "success",
-          confirmButtonText: "Continuar",
-        }).then(() => {
           handleEmails(e);
-        });
       } else {
         Swal.fire({
-          title: "Error!",
-          text: "Error al guardar los datos",
+          title: "¡Error!",
+          text: "Error al guardar los datos.",
           icon: "error",
-          confirmButtonText: "Cool",
+          showConfirmButton: false,
+          showCancelButton: true,
+          cancelButtonText: 'Cerrar',
         });
       }
     } catch (error) {
       console.error("Error al guardar los datos:", error);
       Swal.fire({
-        title: "Error!",
-        text: "Error al guardar los datos",
+        title: "¡Error!",
+        text: "Error al guardar los datos.",
         icon: "error",
-        confirmButtonText: "Cool",
+        showConfirmButton: false,
+        showCancelButton: true,
+        cancelButtonText: 'Cerrar',
       });
     }
   };

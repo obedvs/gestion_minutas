@@ -103,16 +103,18 @@ const Login = () => {
               .compare(password, user.password)
               .then((passwordMatch) => {
                 if (passwordMatch) {
-                  console.log("Inicio de sesión exitoso");
+                  // console.log("Inicio de sesión exitoso");
                   sessionStorage.setItem('idUser', user._id);
                   // Cookies.set("idUser", user._id, { path: "/" });
                   router.push("/");
                 } else {
                   Swal.fire({
-                    title: 'Error!',
-                    text: 'Credenciales Invalidas',
+                    title: '¡Error!',
+                    text: 'Credenciales Invalidas.',
                     icon: 'error',
-                    confirmButtonText: 'Cool',
+                    showCancelButton: true,
+                    cancelButtonText: "Cerrar",
+                    showConfirmButton: false
                   });
                 }
               })
@@ -121,10 +123,12 @@ const Login = () => {
               });
           } else {
             Swal.fire({
-              title: 'Error!',
-              text: 'Usuario no encontrado',
+              title: '¡Error!',
+              text: 'Usuario No Encontrado.',
               icon: 'error',
-              confirmButtonText: 'Cool',
+              showCancelButton: true,
+              cancelButtonText: "Cerrar",
+              showConfirmButton: false
             });
           }
         })

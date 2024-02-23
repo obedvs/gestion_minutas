@@ -75,10 +75,10 @@ const PDFViewer = ({ params }) => {
           },
       }
       try {
-        // Ejemplo de cómo podrías condicionar la importación
+        // Condicionar la importación para prevenir error
         if (typeof window !== 'undefined') {
           const html2pdf = require('html2pdf.js');
-          // Resto de tu lógica con html2pdf
+          
           const pdfBlob = await html2pdf().from(element).set(pdfOptions)
           .toPdf()
           .output('blob');
@@ -118,6 +118,7 @@ const PDFViewer = ({ params }) => {
           text: 'Se ha producido un error al intentar generar o guardar el PDF.',
           icon: 'error',
           showConfirmButton: false,
+          showCancelButton: true,
           cancelButtonText: 'Cerrar',
         });
       }
@@ -153,7 +154,7 @@ const PDFViewer = ({ params }) => {
           },
       }
       try {
-        // Ejemplo de cómo podrías condicionar la importación
+        // Condicionar la importación para prevenir error
         if (typeof window !== 'undefined') {
           const html2pdf = require('html2pdf.js');
           await html2pdf().from(element).set(pdfOptions).save();
@@ -174,6 +175,7 @@ const PDFViewer = ({ params }) => {
           text: 'Se ha producido un error al intentar generar o guardar el PDF.',
           icon: 'error',
           showConfirmButton: false,
+          showCancelButton: true,
           cancelButtonText: 'Cerrar',
         });
       }

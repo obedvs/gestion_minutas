@@ -4,10 +4,8 @@ import React, { Suspense, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Activa } from "@/components/Minutas";
 import { Finalizada } from "@/components/Minutas";
-// import Cookies from 'js-cookie';
 import { Metric, Divider, TextInput, Button } from "@tremor/react";
 import { MagnifyingGlassCircleIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
-// import User from '@components/Usuarios';
 import { useRouter } from 'next/navigation';
 import { apiUrl } from '@/config/config';
 import Loading from './loading';
@@ -17,8 +15,6 @@ const Minutas = () => {
   const router = useRouter();
 
   const idFromSession = sessionStorage.getItem('idUser');
-  // const idFromSession = Cookies.get('idUser');
-  // const UserNameCoockie = Cookies.get('UserName');
   const [minutaData, setMinutaData] = useState(null);
   const [searchText, setSearchText] = useState("");
 

@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 // import html2pdf from 'html2pdf.js';
-// import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { Button, Divider, Icon, Subtitle, MultiSelect, MultiSelectItem, TextInput, Metric } from "@tremor/react";
@@ -24,7 +23,6 @@ const ConclusionMinuta = ({ params }) => {
   const router = useRouter();
 
   const idFromSession = sessionStorage.getItem('idUser');
-  // const idFromSession = Cookies.get('idUser');
 
   const [ conclusion, setConclusion ] = useState('');
   const [ fechaProximaReunion, setFechaProximaReunion ] = useState("");
@@ -37,8 +35,6 @@ const ConclusionMinuta = ({ params }) => {
     e.preventDefault();
     setFechaProximaReunion(e.target.value);
   };
-
-  // const divToPrint = useRef(null);
 
   const { idA } = params;
 
@@ -145,7 +141,6 @@ const ConclusionMinuta = ({ params }) => {
   const handleEmails = (ids = []) => {
     if (ids.length === 0) return;
     const emails = ids.map((id) => usersData.find(user => user._id === id ).email);
-    // TODO: CHANGE THIS TO THE REAL URL
     axios.post(`${ apiUrl }/send_email_2/${idM}`, {
       subject: "Firma de Minuta",
       guests: emails,
@@ -153,18 +148,22 @@ const ConclusionMinuta = ({ params }) => {
     .then((response) => {
       if (response.status === 200) {
         Swal.fire({
-          title: 'Correos Enviados',
+          title: 'Información Guardada y Correos Enviados',
+          text: 'Se ha guardado la información y se han enviado correctamente los correos electrónicos a los destinatarios seleccionados.',
           icon: 'success',
-          confirmButtonText: 'Continuar'
+          confirmButtonText: 'Continuar',
+          confirmButtonColor: '#22C55E'
         }).then(() => {
           router.back();
         })
       } else {
         Swal.fire({
-          title: 'Error!',
+          title: '¡Error!',
           text: 'Error al enviar los correos',
           icon: 'error',
-          confirmButtonText: 'Cerrar'
+          showCancelButton: true,
+          cancelButtonText: "Cerrar",
+          showConfirmButton: false
         });
       }
     })
@@ -179,33 +178,19 @@ const ConclusionMinuta = ({ params }) => {
         conclusion, fechaProximaReunion
       });
 
-      if (response.status !== 200) {
-        Swal.fire({
-          title: 'Error!',
-          text: response.data.message,
-          icon: 'error',
-          confirmButtonText: 'Cool'
-        });
-        return;
-      }
-
-      Swal.fire({
-        title: 'Información Guardada',
-        text: 'Los datos se han guardado con exito.',
-        icon: 'success',
-        confirmButtonText: 'Continuar'
-      }).then(() => {
-        // generatePDF(idM);
+      if (response.status === 200) {
         handleEmails(selectedUsers);
-      });
+      }
 
     } catch (error) {
       console.error(error);
       Swal.fire({
-        title: 'Error!',
+        title: '¡Error!',
         text: 'Error al guardar los datos',
         icon: 'error',
-        confirmButtonText: 'Cool'
+        showCancelButton: true,
+        cancelButtonText: "Cerrar",
+        showConfirmButton: false
       });
     }
   };

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import EditText from "@/components/rich_text";
 import "@/styles/seguimiento.css";
 import axios from "axios";
@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import { Button, Icon, Subtitle, Tab, TabGroup, TabList, TextInput } from "@tremor/react";
 import { ArrowUturnLeftIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline";
 import { apiUrl } from "@/config/config";
+import Loading from "./loading";
 // import Cookies from "js-cookie";
 
 
@@ -64,28 +65,33 @@ const NuevaMinutas = ({ params }) => {
       });
       if (response) {
         Swal.fire({
-          title: 'Acuerdo Guardado',
-          text: 'Se Guardo Correctamente el Acuerdo',
+          title: 'Acuerdo Actualizado',
+          text: 'Se ha actualizado correctamente el seguimiento del Acuerdo.',
           icon: 'success',
-          confirmButtonText: 'OK',
+          confirmButtonText: 'Continuar',
+          confirmButtonColor: '#22C55E'
         }).then(
           router.back()
         )
       }else{
         Swal.fire({
-          title: 'Error!',
-          text: 'No se pudo guardar el Seguimiento',
+          title: '¡Error!',
+          text: 'No se guardardo la actualización del seguimiento del Acuerdo.',
           icon: 'error',
-          confirmButtonText: 'Cool',
+          showCancelButton: true,
+          cancelButtonText: "Cerrar",
+          showConfirmButton: false
         });
       }
     } catch (error) {
       console.error(error);
       Swal.fire({
-        title: 'Error!',
-        text: 'Ocurrio un Error al dar Seguimineto',
+        title: '¡Error!',
+        text: 'Ocurrió un error al actualizar el seguimiento del Acuerdo.',
         icon: 'error',
-        confirmButtonText: 'Cool',
+        showCancelButton: true,
+        cancelButtonText: "Cerrar",
+        showConfirmButton: false
       });
     }
   };
@@ -131,7 +137,9 @@ const NuevaMinutas = ({ params }) => {
 
           <Subtitle className="mt-2">Descripcion</Subtitle>
 
-          <EditText value={ editableDescription } setValue={ setEditableDescription } read={ minutaData.responsable === idFromSession ? false : true } />
+          <Suspense fallback={<Loading/>}>
+            <EditText value={ editableDescription } setValue={ setEditableDescription } read={ minutaData.responsable === idFromSession ? false : true } />
+          </Suspense>
 
           <Button
             className={minutaData.responsable === idFromSession ? `w-full mt-4` : `hidden`}
