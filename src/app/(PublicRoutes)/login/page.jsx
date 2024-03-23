@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import bcrypt from "bcryptjs";
 import axios from "axios";
-// import Cookies from "js-cookie";
 import { Button, TextInput, Title, Text } from "@tremor/react";
 import {
   LockClosedIcon,
@@ -103,9 +102,7 @@ const Login = () => {
               .compare(password, user.password)
               .then((passwordMatch) => {
                 if (passwordMatch) {
-                  // console.log("Inicio de sesión exitoso");
                   sessionStorage.setItem('idUser', user._id);
-                  // Cookies.set("idUser", user._id, { path: "/" });
                   router.push("/");
                 } else {
                   Swal.fire({
@@ -134,6 +131,14 @@ const Login = () => {
         })
         .catch((error) => {
           console.error("Error al obtener los usuarios:", error);
+          Swal.fire({
+            title: '¡Error en el Servidor!',
+            text: 'Se ha producido un error externo, ponte en contacto con un administrador.',
+            icon: 'error',
+            showCancelButton: true,
+            cancelButtonText: "Cerrar",
+            showConfirmButton: false
+          });
         });
     }
   };
