@@ -83,32 +83,34 @@ const NuevaMinutas = () => {
       confirmButtonText: "Sí, Continuar",
       showCancelButton: true,
       cancelButtonText: 'No, Cancelar',
-    }).then(() => {
-      axios
-        .post(`${ apiUrl }/minutes/`, {
-          ...datosMinuta,
-          descripcion: editableDescription,
-        })
-        .then((response) => {
-          Swal.fire({
-            title: "Minuta Generada Exitosamente",
-            text: "La minuta ha sido generada, continúe para enviar los correos electrónicos de invitación.",
-            icon: "success",
-            confirmButtonColor: "#22C55E",
-            confirmButtonText: "Continuar"
-          }).then(() => {
-            handleEmails(datosMinuta.usuario_id);
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(`${ apiUrl }/minutes/`, {
+            ...datosMinuta,
+            descripcion: editableDescription,
+          })
+          .then((response) => {
+            Swal.fire({
+              title: "Minuta Generada Exitosamente",
+              text: "La minuta ha sido generada, continúe para enviar los correos electrónicos de invitación.",
+              icon: "success",
+              confirmButtonColor: "#22C55E",
+              confirmButtonText: "Continuar"
+            }).then(() => {
+              handleEmails(datosMinuta.usuario_id);
+            });
+          })
+          .catch((error) => {
+            console.error(error);
+            Swal.fire({
+              title: "Error!",
+              text: "Error al guardar los datos.",
+              icon: "error",
+              confirmButtonText: "Cerrar"
+            });
           });
-        })
-        .catch((error) => {
-          console.error(error);
-          Swal.fire({
-            title: "Error!",
-            text: "Error al guardar los datos.",
-            icon: "error",
-            confirmButtonText: "Cerrar"
-          });
-        });
+      }
     });
   };
 

@@ -75,34 +75,36 @@ const EditarMinuta = ({ params }) => {
       confirmButtonText: "Sí, Continuar",
       showCancelButton: true,
       cancelButtonText: 'No, Cancelar',
-    }).then(async () => {
-      try {
-          const response = await axios.put(`${ apiUrl }/minutes/${idM}`, {
-            ...formData,
-            // responsable: responsableEncontrado._id,
-            descripcion: editableDescription
-          });
-
-          if (response) {
-            Swal.fire({
-              title: "Minuta Actualizada",
-              text: "Los datos se han modificado correctamente.",
-              icon: "success",
-              confirmButtonColor: "#22C55E",
-              confirmButtonText: "Continuar"
-            }).then(() => {
-              // window.location.reload();
-              router.push('/dash/minutas');
+    }).then( async (result) => {
+      if (result.isConfirmed) {
+        try {
+            const response = await axios.put(`${ apiUrl }/minutes/${idM}`, {
+              ...formData,
+              // responsable: responsableEncontrado._id,
+              descripcion: editableDescription
             });
-          }
-      } catch (error) {
-        console.error(error);
-        Swal.fire({
-          title: "Error!",
-          text: "Error al guardar los datos",
-          icon: "error",
-          confirmButtonText: "Cerrar"
-        });
+  
+            if (response) {
+              Swal.fire({
+                title: "Minuta Actualizada",
+                text: "Los datos se han modificado correctamente.",
+                icon: "success",
+                confirmButtonColor: "#22C55E",
+                confirmButtonText: "Continuar"
+              }).then(() => {
+                // window.location.reload();
+                router.push('/dash/minutas');
+              });
+            }
+        } catch (error) {
+          console.error(error);
+          Swal.fire({
+            title: "Error!",
+            text: "Error al guardar los datos",
+            icon: "error",
+            confirmButtonText: "Cerrar"
+          });
+        }
       }
     });
   };
