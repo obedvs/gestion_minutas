@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from "next/navigation";
-// import Cookies from 'js-cookie';
 import axios from 'axios';
 import { Text, Title, Icon, Divider, Button } from "@tremor/react";
 import { PlusCircleIcon, ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
@@ -12,11 +11,10 @@ import { Acuerdos } from "@/components/Acuerdo";
 import { apiUrl } from '@/config/config';
 
 const MinutaSeleccionada = ({ params }) => {
-  const { id } = params;
   const router = useRouter();
-
   const idFromSession = sessionStorage.getItem('idUser');
-  // const idFromSession = Cookies.get('idUser');
+
+  const { id } = params;
 
   const [ acuerdoData, setAcuerdoData ] = useState([]);
   const [ minutaData, setMinutaData ] = useState([]);
@@ -39,7 +37,7 @@ const MinutaSeleccionada = ({ params }) => {
 
   return (
     <>
-      <div className='w-full flex flex-col md:flex-row justify-between'>
+      <div className='md:flex-row flex flex-col justify-between w-full'>
         <Icon className='w-10 h-10 cursor-pointer'
           icon={ArrowUturnLeftIcon}
           onClick={() => router.back()}
@@ -48,13 +46,13 @@ const MinutaSeleccionada = ({ params }) => {
           tooltip='Regresar'
         />
 
-        <div className='w-full justify-center md:justify-end flex gap-1 md:gap-4 mt-4 md:mt-0'>
+        <div className='md:justify-end md:gap-4 md:mt-0 flex justify-center w-full gap-1 mt-4'>
           <Button
             variant='secondary'
             color='red'
             onClick={() => router.push(`/dash/minutas/${id}/conclusion`)}
           >
-            Conclusión de la reunión
+            Conclusión de la Reunión
           </Button>
 
           <Button
@@ -64,13 +62,13 @@ const MinutaSeleccionada = ({ params }) => {
             onClick={() => router.push(`/dash/minutas/${id}/generaracuerdo`)}
             disabled={minutaData.responsable === idFromSession ? false : true}
           >
-            Añadir acuerdo
+            Añadir Acuerdo
           </Button>
         </div>
 
       </div>
 
-      <Title className='mt-4 md:mt-7'>
+      <Title className='md:mt-7 mt-4'>
         {minutaData.tema}
       </Title>
       <Divider className='mt-2' />

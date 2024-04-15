@@ -16,36 +16,29 @@ import { apiUrl } from '@/config/config';
 export const Activa = (minuta) => {
 
   const router = useRouter();
-
-  // const [eliminarMinutaVisible, setEliminarMinutaVisible] = useState(false);
-  // const [terminarMinutaVisible, setTerminarMinutaVisible] = useState(false);
   
   // Eliminar Minuta
   const handleEliminarClick = (id) => {
-    // e.preventDefault();
-    // setEliminarMinutaVisible(true);
     if(id) {
       Swal.fire({
-        title: 'Eliminar Minuta',
-        text: '¿Deseas Eliminar la Minuta? Esta acción no podrá ser revertida.',
+        title: '¿Deseas Eliminar la Minuta?',
+        text: 'Esta acción no podrá ser revertida.',
         icon: "warning",
-        showCancelButton: true,
         confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
         confirmButtonText: 'Sí, eliminar',
+        showCancelButton: true,
         cancelButtonText: 'No, cancelar',
       }).then((result) => {
         if (result.isConfirmed) {
           axios
             .delete(`${ apiUrl }/minutes/${id}`)
             .then(response => {
-              console.log('Eliminación exitosa');
               Swal.fire({
                 title: 'Minuta Eliminada',
                 text: 'Se eliminó correctamente la Minuta',
                 icon: 'success',
-                confirmButtonColor: "#d33",
-                confirmButtonText: 'Cerrar',
+                confirmButtonColor: '#22C55E',
+                confirmButtonText: 'Continuar',
               }).then(() => window.location.reload());
             })
             .catch(error => {
@@ -78,49 +71,54 @@ export const Activa = (minuta) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${ apiUrl }/minutes/${id}`);
+        console.log(response.data.conclusion)
         if (response.data) {
-          const datosMinuta = {
-            ...response.data,
-            estatus: "Inactivo"
-          };
-          Swal.fire({
-            title: 'Terminar Minuta',
-            text: '¿Desea Terminar la Minuta?',
-            icon: 'question',
-            onfirmButtonColor: '#22C55E',
-            confirmButtonText: 'Sí, terminar',
-            showCancelButton: true,
-            cancelButtonText: 'No, cancelar',
-          }).then((result) => {
-            if (result.isConfirmed) {
-              axios.put(`${ apiUrl }/minutes/${id}`, datosMinuta)
-                .then(response => {
-                  Swal.fire({
-                    title: 'Minuta Terminada',
-                    text: 'La Minuta se dio por Terminada Correctamente.',
-                    icon: 'success',
-                    confirmButtonColor: "#d33",
-                    confirmButtonText: 'Cerrar',
-                  }).then(() => window.location.reload());
-                })
-                .catch(error => {
-                  console.error('Error al guardar los datos:', error);
-                  Swal.fire({
-                    title: '¡Error!',
-                    text: 'Error al terminar Minuta.',
-                    icon: 'error',
-                    confirmButtonColor: "#d33",
-                    confirmButtonText: 'Cerrar'
+          if (response.data.conclusion !== undefined) {
+            const datosMinuta = {
+              ...response.data,
+              estatus: "Inactivo"
+            };
+            Swal.fire({
+              title: '¿Desea Terminar la Minuta?',
+              text: 'La minuta se dará por Terminada y la información no podrá ser modificada, se recomienda hacer una revisión y verificar que todo está en orden.',
+              icon: 'question',
+              confirmButtonColor: '#22C55E',
+              confirmButtonText: 'Sí, terminar',
+              showCancelButton: true,
+              cancelButtonText: 'No, cancelar',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                axios.put(`${ apiUrl }/minutes/${id}`, datosMinuta)
+                  .then(response => {
+                    Swal.fire({
+                      title: 'Minuta Terminada',
+                      text: 'La minuta se dio por Terminada correctamente.',
+                      icon: 'success',
+                      confirmButtonColor: '#22C55E',
+                      confirmButtonText: 'Continuar',
+                    }).then(() => window.location.reload());
+                  })
+                  .catch(error => {
+                    console.error('Error al guardar los datos:', error);
+                    Swal.fire({
+                      title: '¡Error!',
+                      text: 'Error al terminar Minuta.',
+                      icon: 'error',
+                      confirmButtonColor: "#d33",
+                      confirmButtonText: 'Cerrar'
+                    });
                   });
-                });
-            } else {
-              Swal.fire({
-                title: 'Minuta No Terminada',
-                text: 'No se ha dado por Terminada la Minuta.',
-                icon: 'info',
-              });
-            }
-          });
+              }
+            });
+          } else {
+            Swal.fire({
+              title: 'Minuta Sin Conclusión',
+              text: 'La minuta no cuenta con conclusión, se debe añadir una para poder ser dada por Terminada.',
+              icon: 'error',
+              confirmButtonColor: '#22C55E',
+              confirmButtonText: 'Continuar',
+            })
+          }
         }
       } catch (error) {
         console.error(error);
@@ -132,7 +130,7 @@ export const Activa = (minuta) => {
   };
 
   return (
-    <Card className='w-full mb-4 flex flex-col justify-between'>
+    <Card className='flex flex-col justify-between w-full mb-4'>
       <div className='flex h-full'>
         <div className={minuta.usuario_id.find(user => user === minuta.User) || minuta.responsable === minuta.User ? `flex flex-col w-2/3 justify-center gap-1` : `flex flex-col w-full justify-center gap-1`}>
           <div className='flex items-center gap-1'>
@@ -221,9 +219,9 @@ export const Finalizada = (minuta) => {
   const router = useRouter();
 
   return (
-    <Card className='w-full mb-4 flex flex-col justify-between'>
+    <Card className='flex flex-col justify-between w-full mb-4'>
       <div className='flex'>
-        <div className='flex flex-col w-full justify-center gap-1'>
+        <div className='flex flex-col justify-center w-full gap-1'>
           <div className='flex items-center gap-2'>
             <Title className='!text-sm'>Tema:</Title>
             <Text>{minuta.tema}</Text>

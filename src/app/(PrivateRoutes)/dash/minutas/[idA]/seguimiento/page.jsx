@@ -10,28 +10,14 @@ import { Button, Icon, Subtitle, Tab, TabGroup, TabList, TextInput } from "@trem
 import { ArrowUturnLeftIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline";
 import { apiUrl } from "@/config/config";
 import Loading from "./loading";
-// import Cookies from "js-cookie";
 
 
 const NuevaMinutas = ({ params }) => {
-  const { idA } = params;
-  const idFromSession = sessionStorage.getItem('idUser');
-  // const idFromSession = Cookies.get('idUser');
-  const [ acuerdoData, setAcuerdoData ] = useState(null);
-  const [ formData, setFormData ] = useState({
-    asunto: "",
-    responsablec_id: "",
-    responsabler_id: "",
-    acuerdo: "",
-    fecha: "",
-    descripcion: "",
-    estatus: ""
-  });
-  const [ editableDescription, setEditableDescription ] = useState('');
-  const [ minutaData, setMinutaData ] = useState(null);
-
   const router = useRouter();
+  const idFromSession = sessionStorage.getItem('idUser');
 
+  const { idA } = params;
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,6 +35,21 @@ const NuevaMinutas = ({ params }) => {
 
     fetchData();
   }, [idA]);
+
+  const [ acuerdoData, setAcuerdoData ] = useState(null);
+  const [ formData, setFormData ] = useState({
+    asunto: "",
+    responsablec_id: "",
+    responsabler_id: "",
+    acuerdo: "",
+    fecha: "",
+    descripcion: "",
+    estatus: ""
+  });
+  const [ editableDescription, setEditableDescription ] = useState('');
+  const [ minutaData, setMinutaData ] = useState(null);
+
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -108,7 +109,7 @@ const NuevaMinutas = ({ params }) => {
           tooltip='Regresar'
         />
 
-        <form className='w-full px-5 lg:px-40' onSubmit={handleSubmit}>
+        <form className='lg:px-40 w-full px-5' onSubmit={handleSubmit}>
 
           <Subtitle className="mt-4">Acuerdo</Subtitle>
           <TextInput

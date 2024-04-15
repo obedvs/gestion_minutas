@@ -65,35 +65,46 @@ const EditarMinuta = ({ params }) => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-        const response = await axios.put(`${ apiUrl }/minutes/${idM}`, {
-          ...formData,
-          // responsable: responsableEncontrado._id,
-          descripcion: editableDescription
-        });
-
-        if (response) {
-          Swal.fire({
-            title: "Minuta Guardada",
-            text: "Los datos se han guardado",
-            icon: "success",
-            confirmButtonText: "Cool"
-          }).then(() => {
-            // window.location.reload();
-            router.push('/dash/minutas');
+    Swal.fire({
+      title: "¿Desea Continuar?",
+      text: "La minuta será actualizada con la información introducida.",
+      icon: "question",
+      confirmButtonColor: "#22C55E",
+      confirmButtonText: "Sí, Continuar",
+      showCancelButton: true,
+      cancelButtonText: 'No, Cancelar',
+    }).then(async () => {
+      try {
+          const response = await axios.put(`${ apiUrl }/minutes/${idM}`, {
+            ...formData,
+            // responsable: responsableEncontrado._id,
+            descripcion: editableDescription
           });
-        }
-    } catch (error) {
-      console.error(error);
-      Swal.fire({
-        title: "Error!",
-        text: "Error al guardar los datos",
-        icon: "error",
-        confirmButtonText: "Cool"
-      });
-    }
+
+          if (response) {
+            Swal.fire({
+              title: "Minuta Actualizada",
+              text: "Los datos se han modificado correctamente.",
+              icon: "success",
+              confirmButtonColor: "#22C55E",
+              confirmButtonText: "Continuar"
+            }).then(() => {
+              // window.location.reload();
+              router.push('/dash/minutas');
+            });
+          }
+      } catch (error) {
+        console.error(error);
+        Swal.fire({
+          title: "Error!",
+          text: "Error al guardar los datos",
+          icon: "error",
+          confirmButtonText: "Cerrar"
+        });
+      }
+    });
   };
 
   if (minutaData) {
@@ -107,7 +118,7 @@ const EditarMinuta = ({ params }) => {
           tooltip='Regresar'
         />
 
-      <form className='w-full px-5 lg:px-40' onSubmit={handleSubmit}>
+      <form className='lg:px-40 w-full px-5' onSubmit={handleSubmit}>
         <Subtitle className="mt-2">Asunto</Subtitle>
         <TextInput
           className='w-full mt-1'
@@ -132,7 +143,7 @@ const EditarMinuta = ({ params }) => {
           ))}
         </Select>
 
-        <div className='flex flex-col lg:flex-row gap-1'>
+        <div className='lg:flex-row flex flex-col gap-1'>
           <div className="w-full">
             <Subtitle className='mt-2'>Fecha</Subtitle>
             <TextInput

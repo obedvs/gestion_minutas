@@ -1,7 +1,6 @@
 "use client"
 
 import { useRouter } from 'next/navigation';
-// import Cookies from 'js-cookie';
 import { useEffect } from 'react';
 
 export default function App() {
@@ -10,7 +9,6 @@ export default function App() {
 
   useEffect(() => {
     const idFromSession = sessionStorage.getItem('idUser');
-    // const idFromCookie = Cookies.get('idUser');
     if (idFromSession) {
       router.replace('/dash/inicio');
     } else {

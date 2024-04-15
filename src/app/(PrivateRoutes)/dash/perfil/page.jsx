@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '@/styles/perfil.css';
-// import Cookies from 'js-cookie';
 import { Button, Card, Divider, Icon, Text, Title } from '@tremor/react';
 import { BriefcaseIcon, BuildingOffice2Icon, LockClosedIcon, PencilSquareIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { EditProfileForm } from '@/components/EditProfileForm';
@@ -14,21 +13,18 @@ import Loading from '@/components/Loading';
 
 const Perfil = () =>{
 	const idU = sessionStorage.getItem('idUser');
-	// const idU = Cookies.get('idUser');
 	const [ userData, setUserData ] = useState(null);
 	const [ isEditProfileFormOpen, setIsEditProfileFormOpen ] = useState(false);
     const [ isEditPasswordFormOpen, setIsEditPasswordFormOpen ] = useState(false);
 
 	useEffect(() => {
-			fetchData();
+		fetchData();
 	}, []);
 
 	const fetchData = async () => {
 		try {
 			const response = await axios.get(`${ apiUrl }/users/${idU}`);
 			setUserData(response.data);
-			// console.log(response.data);
-
 		} catch (error) {
 			console.error(error);
 		}
@@ -36,10 +32,10 @@ const Perfil = () =>{
 
     if(userData){
         return (
-            <Card className='w-full h-full flex flex-col justify-between'>
-                <div className='w-full h-full flex flex-col'>
+            <Card className='flex flex-col justify-between w-full h-full'>
+                <div className='flex flex-col w-full h-full'>
                     <div
-                        className='w-full flex flex-col justify-center items-center'
+                        className='flex flex-col items-center justify-center w-full'
                     >
                         <Icon 
                             icon={ UserCircleIcon }
@@ -49,7 +45,7 @@ const Perfil = () =>{
                             tooltip='Nombre y Correo Electrónico'
                         />
 
-                        <div className='w-full flex flex-col justify-center items-center mt-2'>
+                        <div className='flex flex-col items-center justify-center w-full mt-2'>
                             <Title>{ userData?.nombre } { userData?.apellido_paterno } { userData?.apellido_materno }</Title>
                             <Text>{ userData?.email }</Text>
                         </div>
@@ -81,8 +77,8 @@ const Perfil = () =>{
 
 					{
 						!isEditProfileFormOpen && !isEditPasswordFormOpen && (
-							<div className='w-1/2 flex flex-col gap-3 self-center'>
-								<div className='w-1/2 flex items-center gap-3'>
+							<div className='flex flex-col self-center w-1/2 gap-3'>
+								<div className='flex items-center w-1/2 gap-3'>
 									<Icon 
 										icon={ BriefcaseIcon }
 										size='md'
@@ -96,7 +92,7 @@ const Perfil = () =>{
 									</div>
 								</div>
 
-								<div className='w-1/2 flex items-center gap-3'>
+								<div className='flex items-center w-1/2 gap-3'>
 									<Icon
 										icon={ BuildingOffice2Icon }
 										size='md'
@@ -117,7 +113,7 @@ const Perfil = () =>{
 
 				{
 					!isEditProfileFormOpen && !isEditPasswordFormOpen && (
-						<div className='w-full flex flex-col md:flex-row justify-center gap-3'>
+						<div className='md:flex-row flex flex-col justify-center w-full gap-3'>
 							<Button
 								className='md:w-1/4 w-full'
 								variant='secondary'

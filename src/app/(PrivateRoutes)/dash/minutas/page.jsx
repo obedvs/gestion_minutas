@@ -44,8 +44,8 @@ const Minutas = () => {
         <Metric>Minutas</Metric>
         <Divider />
   
-        <div className='w-full flex flex-col-reverse md:flex-row gap-5'>
-          <form className='w-full flex gap-2'>
+        <div className='md:flex-row flex flex-col-reverse w-full gap-5'>
+          <form className='flex w-full gap-2'>
             <TextInput 
               placeholder="Buscar"
               icon={MagnifyingGlassCircleIcon}
@@ -59,18 +59,18 @@ const Minutas = () => {
             icon={ PlusCircleIcon }
             iconPosition="right"
             onClick={() => router.push('/dash/minuta/generar')}
-            tooltip="Crear minuta"
+            tooltip="Crear Minuta"
             variant='secondary'
             color='red'
           >
-            Crear minuta
+            Crear Minuta
           </Button>
         </div>
   
         <Metric className='mt-4 mb-2'>Activas</Metric>
         <Suspense fallback={<Loading/>}>
           {filteredMinutaA.length > 0 ? (
-            <div className='md:grid grid-cols-2 lg:grid-cols-3 gap-2'>
+            <div className='md:grid lg:grid-cols-3 grid-cols-2 gap-2'>
               {React.Children.toArray(elementosRenderizadosA)}
             </div>
           ) : (
@@ -81,7 +81,7 @@ const Minutas = () => {
         <Metric className='mt-4 mb-2'>Finalizadas</Metric>
         <Suspense fallback={<Loading/>}>
           {filteredMinutaF.length > 0 ? (
-            <div className='md:grid grid-cols-2 lg:grid-cols-3 gap-2'>
+            <div className='md:grid lg:grid-cols-3 grid-cols-2 gap-2'>
               {React.Children.toArray(elementosRenderizadosF)}
             </div>
           ) : (

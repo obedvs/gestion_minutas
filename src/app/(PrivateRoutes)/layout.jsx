@@ -2,7 +2,6 @@
 
 import { Suspense, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-// import Cookies from 'js-cookie';
 import LatBar from '@/components/lat_com';
 import Loading from './loading';
 
@@ -13,7 +12,6 @@ const PrivateRoutes = ({ children }) => {
 
     useEffect(() => {
         const idFromSession = sessionStorage.getItem('idUser');
-        // const idFromCookie = Cookies.get('idUser');
         if (!idFromSession) {
             router.replace('/login');
         } else {

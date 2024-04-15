@@ -53,8 +53,8 @@ const NuevoAcuerdo = ({ params }) => {
     .then((response) => {
       if (response.status === 200) {
         Swal.fire({
-          title: 'Acuerdo Creado y Correos enviados',
-          text: 'Se ha creado el acuerdo y se han enviado correctamente los correos electrónicos a los destinatarios seleccionados.',
+          title: 'Acuerdo Generado y Correos Electrónicos Enviados',
+          text: 'Se ha generado el acuerdo y se han enviado correctamente los correos electrónicos a los responsables seleccionados.',
           icon: 'success',
           confirmButtonText: 'Continuar',
           confirmButtonColor: '#22C55E'
@@ -77,45 +77,48 @@ const NuevoAcuerdo = ({ params }) => {
 
   const handleGuardarClick = async (e) => {
     e.preventDefault();
-    // if (editableDescription.length > 300) {
-    //   Swal.fire({
-    //     title: "Error!",
-    //     text: "La descripción debe tener menos de 300 caracteres",
-    //     icon: "error",
-    //     confirmButtonText: "Entendido",
-    //   });
-    //   return; 
-    // }
-    try {
-      const response = await axios.post(
-        `${ apiUrl }/agreement/`, {
-          ...formData,
-          descripcion: editableDescription
+    Swal.fire({
+      title: "¿Desea Continuar?",
+      text: "El acuerdo será generado con la información introducida (puede ser modificada más adelante), y se enviará un correo electrónico de notificación a los responsables seleccionados.",
+      icon: "question",
+      confirmButtonColor: "#22C55E",
+      confirmButtonText: "Sí, Continuar",
+      showCancelButton: true,
+      cancelButtonText: 'No, Cancelar',
+    }).then( async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await axios.post(
+            `${ apiUrl }/agreement/`, {
+              ...formData,
+              descripcion: editableDescription
+            }
+          );
+          if (response.status === 200) {
+              handleEmails(e);
+          } else {
+            Swal.fire({
+              title: "¡Error!",
+              text: "Error al guardar los datos.",
+              icon: "error",
+              showConfirmButton: false,
+              showCancelButton: true,
+              cancelButtonText: 'Cerrar',
+            });
+          }
+        } catch (error) {
+          console.error("Error al guardar los datos:", error);
+          Swal.fire({
+            title: "¡Error!",
+            text: "Error al guardar los datos.",
+            icon: "error",
+            showConfirmButton: false,
+            showCancelButton: true,
+            cancelButtonText: 'Cerrar',
+          });
         }
-      );
-      if (response.status === 200) {
-          handleEmails(e);
-      } else {
-        Swal.fire({
-          title: "¡Error!",
-          text: "Error al guardar los datos.",
-          icon: "error",
-          showConfirmButton: false,
-          showCancelButton: true,
-          cancelButtonText: 'Cerrar',
-        });
       }
-    } catch (error) {
-      console.error("Error al guardar los datos:", error);
-      Swal.fire({
-        title: "¡Error!",
-        text: "Error al guardar los datos.",
-        icon: "error",
-        showConfirmButton: false,
-        showCancelButton: true,
-        cancelButtonText: 'Cerrar',
-      });
-    }
+    });
   };
 
   return (
@@ -128,7 +131,7 @@ const NuevoAcuerdo = ({ params }) => {
         tooltip='Regresar'
       />
 
-      <form className='w-full px-5 lg:px-40' onSubmit={(e) => handleGuardarClick(e)}>
+      <form className='lg:px-40 w-full px-5' onSubmit={(e) => handleGuardarClick(e)}>
 
         <Title className='mt-4'>Datos del acuerdo</Title>
         <Subtitle className='mt-2'>Responsable a cumplir</Subtitle>
@@ -158,7 +161,7 @@ const NuevoAcuerdo = ({ params }) => {
         </SearchSelect>
 
         <Title className='mt-4'>Información general</Title>
-        <div className='flex flex-wrap md:flex-nowrap gap-4'>
+        <div className='md:flex-nowrap flex flex-wrap gap-4'>
           <div className="w-full">
             <Subtitle className="mt-2">Título</Subtitle>
             <TextInput
@@ -189,7 +192,7 @@ const NuevoAcuerdo = ({ params }) => {
         <EditText value={editableDescription} setValue={setEditableDescription} />
 
         <Button
-          className='mt-4 w-full'
+          className='w-full mt-4'
           type='submit'
           icon={PaperAirplaneIcon}
           iconPosition='right'

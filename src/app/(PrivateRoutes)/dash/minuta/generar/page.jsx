@@ -53,7 +53,6 @@ const NuevaMinutas = () => {
   const handleEmails = ( ids = [] ) => {
     if ( ids.length === 0 ) return;
     const emails = ids.map((id) => usersData.find( user => user._id === id ).email);
-    // TODO: CHANGE THIS TO THE REAL URL
     axios.post(`${ apiUrl }/send_email`, {
       subject: datosMinuta.asunto,
       date: datosMinuta.fecha,
@@ -62,9 +61,11 @@ const NuevaMinutas = () => {
     }).then((response) => {
       if (!response.status === 200) return
       Swal.fire({
-        title: 'Correos enviados',
+        title: 'Correos Electrónicos Enviados',
+        text: "Los correos electrónicos de invitación han sido enviados correctamente.",
         icon: 'success',
-        confirmButtonText: 'Cool'
+        confirmButtonColor: "#22C55E",
+        confirmButtonText: 'Terminar'
       }).then(() => {
         router.push('/dash/minutas');
       })
@@ -74,6 +75,15 @@ const NuevaMinutas = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    Swal.fire({
+      title: "¿Desea Continuar?",
+      text: "La minuta será generada con la información introducida (puede ser modificada más adelante), y se enviará un correo electrónico de notificación a los invitados seleccionados.",
+      icon: "question",
+      confirmButtonColor: "#22C55E",
+      confirmButtonText: "Sí, Continuar",
+      showCancelButton: true,
+      cancelButtonText: 'No, Cancelar',
+    }).then(() => {
       axios
         .post(`${ apiUrl }/minutes/`, {
           ...datosMinuta,
@@ -81,23 +91,25 @@ const NuevaMinutas = () => {
         })
         .then((response) => {
           Swal.fire({
-            title: "Minuta Guardada",
+            title: "Minuta Generada Exitosamente",
+            text: "La minuta ha sido generada, continúe para enviar los correos electrónicos de invitación.",
             icon: "success",
-            confirmButtonText: "Cool"
+            confirmButtonColor: "#22C55E",
+            confirmButtonText: "Continuar"
           }).then(() => {
             handleEmails(datosMinuta.usuario_id);
-            // router("/Dash/minutas")
           });
         })
         .catch((error) => {
           console.error(error);
           Swal.fire({
             title: "Error!",
-            text: "Error al guardar los datos",
+            text: "Error al guardar los datos.",
             icon: "error",
-            confirmButtonText: "Cool"
+            confirmButtonText: "Cerrar"
           });
         });
+    });
   };
 
   return (
@@ -110,7 +122,7 @@ const NuevaMinutas = () => {
         tooltip='Regresar'
       />
 
-      <form className='w-full px-5 lg:px-40' onSubmit={handleSubmit}>
+      <form className='lg:px-40 w-full px-5' onSubmit={handleSubmit}>
         <Subtitle className="mt-2">Asunto</Subtitle>
         <TextInput
           className='w-full mt-1'
@@ -136,7 +148,7 @@ const NuevaMinutas = () => {
           ))}
         </SearchSelect>
 
-        <div className="w-full flex flex-col md:flex-row gap-3">
+        <div className="md:flex-row flex flex-col w-full gap-3">
           <div className="w-full">
             <Subtitle className="mt-2">Fecha</Subtitle>
             <TextInput
